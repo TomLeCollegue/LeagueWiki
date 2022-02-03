@@ -1,6 +1,14 @@
 package com.androidcourse.leaguewiki
 
-import androidx.fragment.app.Fragment
+import com.androidcourse.leaguewiki.fragment.RecyclerFragment
+import com.mikepenz.fastadapter.GenericItem
 
-class ChampDetailFragment: Fragment(R.layout.fragment_champ_detail) {
+class ChampDetailFragment : RecyclerFragment() {
+
+    override fun getItems(): List<GenericItem> {
+        val items = mutableListOf<GenericItem>()
+
+        return items
+    }
+
 }
