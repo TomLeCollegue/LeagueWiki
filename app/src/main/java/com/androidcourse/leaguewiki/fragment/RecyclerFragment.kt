@@ -11,8 +11,8 @@ import com.mikepenz.fastadapter.adapters.GenericFastItemAdapter
 
 abstract class RecyclerFragment : Fragment() {
 
-    var binding: FragmentRecyclerBinding? = null
-    private val fastAdapter = GenericFastItemAdapter()
+    private var binding: FragmentRecyclerBinding? = null
+    protected val fastAdapter = GenericFastItemAdapter()
 
 
     override fun onCreateView(

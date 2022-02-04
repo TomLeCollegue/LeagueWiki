@@ -1,6 +1,7 @@
 package com.androidcourse.leaguewiki.items
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.androidcourse.leaguewiki.R
 import com.androidcourse.leaguewiki.databinding.ChampionListItemBinding
@@ -13,6 +14,7 @@ class ChampionListItem : AbstractBindingItem<ChampionListItemBinding>() {
     var name: String? = null
     var description: String? = null
     var urlImage: String? = null
+    var onClickCard: View.OnClickListener? = null
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -25,7 +27,8 @@ class ChampionListItem : AbstractBindingItem<ChampionListItemBinding>() {
         super.bindView(binding, payloads)
         binding.nameTextView.text = name
         binding.descriptionTextView.text = description
-        Glide.with(binding.root.context).load(urlImage).into(binding.imageView);
+        Glide.with(binding.root.context).load(urlImage).into(binding.imageView)
+        binding.root.setOnClickListener(onClickCard)
     }
 }
 

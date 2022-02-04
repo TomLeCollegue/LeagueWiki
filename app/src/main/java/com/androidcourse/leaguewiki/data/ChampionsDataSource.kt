@@ -2,11 +2,15 @@ package com.androidcourse.leaguewiki.data
 
 import android.util.Log
 import com.androidcourse.leaguewiki.api.ApiChampionService
+import com.androidcourse.leaguewiki.model.ApiModelChampionDetail
 import com.androidcourse.leaguewiki.model.ApiModelChampionList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class ChampionsDataSource(
+@Singleton
+class ChampionsDataSource @Inject constructor(
     retrofitClient: RetrofitClient
 ) {
 
@@ -16,6 +20,21 @@ class ChampionsDataSource(
         return flow {
             try {
                 val result = apiChampionService.getChampions()
+                if (result.isSuccessful) {
+                    emit(result.body())
+                } else {
+                    Log.d("Log", "error fetching champs")
+                }
+            } catch (e: Exception) {
+                Log.d("Log", "error fetching champs")
+            }
+        }
+    }
+
+    fun getChampionDetail(champId: String): Flow<ApiModelChampionDetail?> {
+        return flow {
+            try {
+                val result = apiChampionService.getDetailChamp(champId)
                 if (result.isSuccessful) {
                     emit(result.body())
                 } else {

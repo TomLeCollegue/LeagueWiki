@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id("androidx.navigation.safeargs")
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -61,5 +63,9 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:_"
     implementation "com.squareup.retrofit2:converter-gson:_"
     implementation "com.squareup.okhttp3:okhttp:_"
+
+    // Hilt
+    implementation "com.google.dagger:hilt-android:_"
+    kapt "com.google.dagger:hilt-compiler:_"
 
 }
