@@ -3,13 +3,15 @@ package com.androidcourse.leaguewiki.items
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import androidx.core.view.updateLayoutParams
 import com.androidcourse.leaguewiki.R
 import com.androidcourse.leaguewiki.databinding.SpellItemBinding
-import com.androidcourse.leaguewiki.setTextOrHide
+import com.androidcourse.leaguewiki.extensions.setTextOrHide
 import com.bumptech.glide.Glide
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 
-class SpellItem: AbstractBindingItem<SpellItemBinding>() {
+class SpellItem : AbstractBindingItem<SpellItemBinding>() {
 
     var title: String? = null
     var description: String? = null

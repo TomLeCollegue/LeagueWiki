@@ -14,7 +14,7 @@
         android:layout_height="wrap_content">
 
         <ImageButton
-            android:id="@+id/shareButton"
+            android:id="@+id/favButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/gallery"
@@ -45,7 +45,7 @@
 
             <TextView
                 android:id="@+id/descriptionTextView"
-                style="@style/TextAppearance.AppCompat.Caption"
+                style="@style/TextAppearance.LeagueWiki.AppCompat.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_large"

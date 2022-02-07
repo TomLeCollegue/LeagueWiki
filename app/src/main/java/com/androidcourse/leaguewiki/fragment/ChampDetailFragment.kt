@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.androidcourse.leaguewiki.Constants
 import com.androidcourse.leaguewiki.databinding.FragmentChampDetailBinding
+import com.androidcourse.leaguewiki.extensions.clearTags
 import com.androidcourse.leaguewiki.items.championListItem
 import com.androidcourse.leaguewiki.items.sectionTitleItem
 import com.androidcourse.leaguewiki.items.spellItem
@@ -71,7 +72,7 @@ class ChampDetailFragment : RecyclerFragment() {
         items += spellItem {
             viewModel.champion.value?.passive?.let {
                 title = it.name
-                description = it.description
+                description = it.description.clearTags()
                 urlImage = Constants.Server.BASE_URL + Constants.Server.IMAGE_PASSIVE_URL.format(it.image)
                 identifier = title.hashCode().toLong()
             }

@@ -1,4 +1,4 @@
-package com.androidcourse.leaguewiki
+package com.androidcourse.leaguewiki.extensions
 
 import android.view.View
 import android.widget.TextView
