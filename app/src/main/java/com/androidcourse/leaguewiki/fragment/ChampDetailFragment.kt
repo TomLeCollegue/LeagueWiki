@@ -11,6 +11,8 @@ import androidx.navigation.fragment.navArgs
 import com.androidcourse.leaguewiki.Constants
 import com.androidcourse.leaguewiki.databinding.FragmentChampDetailBinding
 import com.androidcourse.leaguewiki.items.championListItem
+import com.androidcourse.leaguewiki.items.sectionTitleItem
+import com.androidcourse.leaguewiki.items.spellItem
 import com.androidcourse.leaguewiki.viewmodel.ChampDetailViewModel
 import com.bumptech.glide.Glide
 import com.mikepenz.fastadapter.GenericItem
@@ -60,11 +62,30 @@ class ChampDetailFragment : RecyclerFragment() {
 
     override fun getItems(): List<GenericItem> {
         val items = mutableListOf<GenericItem>()
-        viewModel.champion.value?.spells?.mapTo(items) {
-            championListItem {
-                name = it.name
+
+        items += sectionTitleItem {
+            title = "Passif"
+            identifier = title.hashCode().toLong()
+        }
+
+        items += spellItem {
+            viewModel.champion.value?.passive?.let {
+                title = it.name
                 description = it.description
+                urlImage = Constants.Server.BASE_URL + Constants.Server.IMAGE_PASSIVE_URL.format(it.image)
+                identifier = title.hashCode().toLong()
+            }
+        }
+
+        items += sectionTitleItem {
+            title = "Abilités"
+            identifier = title.hashCode().toLong()
+        }
+        viewModel.champion.value?.spells?.mapTo(items) {
+            spellItem {
+                title = it.name
                 urlImage = Constants.Server.BASE_URL + Constants.Server.IMAGE_SPELL_URL.format(it.image)
+                title.hashCode().toLong()
             }
         }
         return items

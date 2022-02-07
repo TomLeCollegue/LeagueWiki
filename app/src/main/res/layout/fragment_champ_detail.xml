@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             app:contentScrim="?colorPrimary"
+            android:theme="@style/MyToolbarStyle"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@id/toolbar">
 
@@ -31,7 +32,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
+                app:popupTheme="@style/MyToolbarStyle" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 

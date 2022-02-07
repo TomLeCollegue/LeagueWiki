@@ -1,12 +1,15 @@
 package com.androidcourse.leaguewiki.fragment
 
 import android.os.Bundle
-import android.view.View
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.androidcourse.leaguewiki.Constants
+import com.androidcourse.leaguewiki.R
+import com.androidcourse.leaguewiki.databinding.FragmentChampDetailBinding
+import com.androidcourse.leaguewiki.databinding.FragmentHomeBinding
 import com.androidcourse.leaguewiki.items.championListItem
 import com.androidcourse.leaguewiki.items.searchBarItem
 import com.androidcourse.leaguewiki.viewmodel.HomeViewModel
@@ -19,10 +22,24 @@ class HomeFragment : RecyclerFragment() {
 
     private val viewModel by viewModels<HomeViewModel>()
 
+    var binding: FragmentHomeBinding? = null
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentHomeBinding.inflate(inflater, container, false).apply {
+            recyclerView.adapter = fastAdapter
+        }
+        return binding!!.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).supportActionBar?.show()
+        (activity as AppCompatActivity).setSupportActionBar(binding?.toolbar)
         (activity as AppCompatActivity).supportActionBar?.title = "LeagueWiki"
+        setHasOptionsMenu(true)
         lifecycleScope.launch {
             viewModel.champions.collect {
                 refreshScreen()
@@ -36,15 +53,13 @@ class HomeFragment : RecyclerFragment() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_home, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
     override fun getItems(): List<GenericItem> {
         val items = mutableListOf<GenericItem>()
-        items += searchBarItem {
-            onTextChange = {
-                viewModel.setResearch(it)
-            }
-            hint = "Rechercher"
-            identifier = "research".hashCode().toLong()
-        }
 
         viewModel.champions.value?.filter {
             it.name?.contains(viewModel.research.value, ignoreCase = true) == true

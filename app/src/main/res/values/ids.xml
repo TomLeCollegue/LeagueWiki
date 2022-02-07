@@ -2,4 +2,6 @@
 <resources>
     <item name="champion_list_item" type="id" />
     <item name="search_item" type="id" />
+    <item name="section_title_item" type="id" />
+    <item name="spell_item" type="id" />
 </resources>
