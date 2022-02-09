@@ -8,7 +8,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
@@ -43,7 +42,6 @@ class ChampDetailFragment : RecyclerFragment() {
         args.idChamp?.let { viewModel.getChampionDetail(it) }
         lifecycleScope.launch {
             viewModel.champion.collect {
-                Log.d("observe", it?.skins.toString())
                 refreshScreen()
             }
         }
@@ -66,6 +64,10 @@ class ChampDetailFragment : RecyclerFragment() {
         (activity as AppCompatActivity).supportActionBar?.title = args.idChamp
         setHasOptionsMenu(true)
 
+        viewModel.isFavorite.observe(viewLifecycleOwner) {
+            refreshScreen()
+        }
+
         val urlImage =
             Constants.Server.BASE_URL + Constants.Server.IMAGE_SPASH_URL.format(args.idChamp, 0)
         binding?.toolbarImageView?.let {
@@ -81,7 +83,7 @@ class ChampDetailFragment : RecyclerFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.heart) {
-            item.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_filled_heart)
+            viewModel.setFavorite(!(viewModel.isFavorite.value ?: false))
         }
         return super.onOptionsItemSelected(item)
     }
@@ -101,6 +103,7 @@ class ChampDetailFragment : RecyclerFragment() {
                 }
                 tagList += tagItem {
                     text = it
+                    identifier = text.hashCode().toLong()
                 }
             }
             tagList += spaceItem {
@@ -108,6 +111,7 @@ class ChampDetailFragment : RecyclerFragment() {
                 orientation = SpaceItem.Orientation.HORIZONTAL
             }
             itemsList = tagList
+            identifier = "tags".hashCode().toLong()
         }
 
         items += sectionTitleItem {
@@ -167,6 +171,7 @@ class ChampDetailFragment : RecyclerFragment() {
                         )
                     )
                 }
+                identifier = title.hashCode().toLong()
             }
         }
 
@@ -203,6 +208,12 @@ class ChampDetailFragment : RecyclerFragment() {
     override fun onDestroy() {
         super.onDestroy()
         binding = null
+    }
+
+    override fun refreshScreen() {
+        super.refreshScreen()
+        val drawable = if (viewModel.isFavorite.value == true) R.drawable.ic_filled_heart else R.drawable.ic_empty_heart
+        menuItem?.icon = ContextCompat.getDrawable(requireContext(), drawable)
     }
 
 }

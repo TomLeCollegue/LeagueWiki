@@ -48,6 +48,7 @@ class ChampionsRepository @Inject constructor(
 
     fun getFavorites(): Flow<List<Pair<String, Boolean>>> {
         return favoriteDataStore.dataStore.data.map { pref ->
+            Log.d("observe", "getFav repo")
             pref.asMap().toList().map {
                 Pair(it.first.name, it.second as Boolean)
             }
