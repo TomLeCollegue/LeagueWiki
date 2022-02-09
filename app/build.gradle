@@ -33,6 +33,7 @@ android {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:_"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:_"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:_"
 
     implementation "androidx.appcompat:appcompat:_"
     implementation "androidx.core:core-ktx:_"
@@ -67,5 +68,8 @@ dependencies {
     // Hilt
     implementation "com.google.dagger:hilt-android:_"
     kapt "com.google.dagger:hilt-compiler:_"
+
+    // Datastore
+    implementation("androidx.datastore:datastore-preferences:_")
 
 }

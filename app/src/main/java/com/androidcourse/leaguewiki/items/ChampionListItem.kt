@@ -15,6 +15,8 @@ class ChampionListItem : AbstractBindingItem<ChampionListItemBinding>() {
     var description: String? = null
     var urlImage: String? = null
     var onClickCard: View.OnClickListener? = null
+    var onFavoriteClick: View.OnClickListener? = null
+    var isFavorite: Boolean = false
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -29,6 +31,13 @@ class ChampionListItem : AbstractBindingItem<ChampionListItemBinding>() {
         binding.descriptionTextView.text = description
         Glide.with(binding.root.context).load(urlImage).into(binding.imageView)
         binding.root.setOnClickListener(onClickCard)
+        binding.favButton.setOnClickListener(onFavoriteClick)
+
+        if(isFavorite) {
+            binding.favButton.setImageResource(R.drawable.ic_filled_heart)
+        } else {
+            binding.favButton.setImageResource(R.drawable.ic_empty_heart)
+        }
     }
 }
 

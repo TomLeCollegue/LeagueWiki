@@ -3,9 +3,14 @@ package com.androidcourse.leaguewiki.fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -30,6 +35,7 @@ class ChampDetailFragment : RecyclerFragment() {
 
     private val args: ChampDetailFragmentArgs by navArgs()
     var binding: FragmentChampDetailBinding? = null
+    var menuItem: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,12 +64,26 @@ class ChampDetailFragment : RecyclerFragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(binding?.toolbar)
         (activity as AppCompatActivity).supportActionBar?.title = args.idChamp
+        setHasOptionsMenu(true)
 
         val urlImage =
             Constants.Server.BASE_URL + Constants.Server.IMAGE_SPASH_URL.format(args.idChamp, 0)
         binding?.toolbarImageView?.let {
             Glide.with(requireContext()).load(urlImage).into(it)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.champ_detail_menu, menu)
+        menuItem = menu.findItem(R.id.heart)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.heart) {
+            item.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_filled_heart)
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun getItems(): List<GenericItem> {
