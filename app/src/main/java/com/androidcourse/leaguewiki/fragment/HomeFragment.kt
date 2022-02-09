@@ -2,16 +2,15 @@ package com.androidcourse.leaguewiki.fragment
 
 import android.os.Bundle
 import android.view.*
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.androidcourse.leaguewiki.Constants
 import com.androidcourse.leaguewiki.R
-import com.androidcourse.leaguewiki.databinding.FragmentChampDetailBinding
 import com.androidcourse.leaguewiki.databinding.FragmentHomeBinding
 import com.androidcourse.leaguewiki.items.championListItem
-import com.androidcourse.leaguewiki.items.searchBarItem
 import com.androidcourse.leaguewiki.viewmodel.HomeViewModel
 import com.mikepenz.fastadapter.GenericItem
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,6 +54,21 @@ class HomeFragment : RecyclerFragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_home, menu)
+        val searchView = menu.findItem(R.id.app_bar_search).actionView as SearchView
+        searchView.queryHint = "Rechercher"
+        searchView.setQuery(viewModel.research.value, false)
+        searchView.maxWidth = Integer.MAX_VALUE
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(string: String?): Boolean {
+                viewModel.setResearch(string ?: "")
+                return false
+            }
+
+        })
         super.onCreateOptionsMenu(menu, inflater)
     }
 

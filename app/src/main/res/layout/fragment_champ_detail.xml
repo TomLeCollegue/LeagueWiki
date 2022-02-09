@@ -16,6 +16,7 @@
             android:layout_height="300dp"
             app:contentScrim="?colorPrimary"
             android:theme="@style/MyToolbarStyle"
+            app:collapsedTitleTextAppearance="@style/TextAppearance.LeagueWiki.AppCompat.Toolbar"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@id/toolbar">
 

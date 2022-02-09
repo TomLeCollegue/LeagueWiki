@@ -4,4 +4,12 @@
     <item name="search_item" type="id" />
     <item name="section_title_item" type="id" />
     <item name="spell_item" type="id" />
+    <item name="title_item" type="id" />
+    <item name="caption_item" type="id" />
+    <item name="space_item" type="id" />
+    <item name="skin_item" type="id" />
+    <item name="horizontal_recycler_item" type="id" />
+    <item name="tag_item" type="id" />
+    <item name="title_spell_item" type="id" />
+    <item name="stat_item" type="id" />
 </resources>

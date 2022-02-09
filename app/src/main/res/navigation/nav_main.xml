@@ -6,19 +6,30 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.androidcourse.leaguewiki.fragment.HomeFragment"
-        android:label="HomeFragment" >
+        android:name="com.androidcourse.leaguewiki.fragment.HomeFragment">
         <action
             android:id="@+id/action_homeFragment_to_champDetailFragment"
             app:destination="@id/champDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/champDetailFragment"
-        android:name="com.androidcourse.leaguewiki.fragment.ChampDetailFragment"
-        android:label="ChampDetailFragment" >
+        android:name="com.androidcourse.leaguewiki.fragment.ChampDetailFragment">
         <argument
             android:name="idChamp"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_champDetailFragment_to_detailBottomSheetFragment"
+            app:destination="@id/detailBottomSheetFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/detailBottomSheetFragment"
+        android:name="com.androidcourse.leaguewiki.fragment.DetailBottomSheetFragment" >
+        <argument
+            android:name="spellIndex"
+            app:argType="integer" />
+        <argument
+            android:name="isLore"
+            app:argType="boolean" />
+    </dialog>
 </navigation>
