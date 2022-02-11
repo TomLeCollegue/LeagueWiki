@@ -1,6 +1,6 @@
 package com.androidcourse.leaguewiki.model
 
-data class ChampionInfo (
+data class ChampionInfo(
     val id: String?,
     val name: String?,
     val title: String?,

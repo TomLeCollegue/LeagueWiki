@@ -6,7 +6,7 @@ import com.androidcourse.leaguewiki.R
 import com.androidcourse.leaguewiki.databinding.SectionTitleItemBinding
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 
-class SectionTitleItem: AbstractBindingItem<SectionTitleItemBinding>() {
+class SectionTitleItem : AbstractBindingItem<SectionTitleItemBinding>() {
 
     var title: String? = null
 
@@ -14,7 +14,7 @@ class SectionTitleItem: AbstractBindingItem<SectionTitleItemBinding>() {
         inflater: LayoutInflater,
         parent: ViewGroup?
     ): SectionTitleItemBinding {
-        return SectionTitleItemBinding.inflate(inflater,parent, false)
+        return SectionTitleItemBinding.inflate(inflater, parent, false)
     }
 
     override fun bindView(binding: SectionTitleItemBinding, payloads: List<Any>) {

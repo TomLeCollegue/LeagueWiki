@@ -5,11 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.androidcourse.leaguewiki.R
 import com.androidcourse.leaguewiki.databinding.CaptionItemBinding
-import com.androidcourse.leaguewiki.extensions.addRipple
 import com.androidcourse.leaguewiki.extensions.setOnClickListenerOrHideRipple
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 
-class CaptionItem: AbstractBindingItem<CaptionItemBinding>() {
+class CaptionItem : AbstractBindingItem<CaptionItemBinding>() {
 
     var text: String? = null
     var maxLine: Int = Int.MAX_VALUE

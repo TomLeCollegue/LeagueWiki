@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
 import com.androidcourse.leaguewiki.R
-import com.androidcourse.leaguewiki.databinding.SkinItemBinding
 import com.androidcourse.leaguewiki.databinding.SpellItemBinding
 import com.androidcourse.leaguewiki.extensions.setTextOrHide
 import com.bumptech.glide.Glide
@@ -34,7 +33,7 @@ class SpellItem : AbstractBindingItem<SpellItemBinding>() {
         binding.descriptionTextView.setTextOrHide(description)
         Glide.with(binding.root.context).load(urlImage).into(binding.imageView)
 
-        if(spellKey == null) {
+        if (spellKey == null) {
             binding.spellImageView.isVisible = false
         } else {
             spellKey?.let {
@@ -43,7 +42,7 @@ class SpellItem : AbstractBindingItem<SpellItemBinding>() {
         }
 
         defaultRippleColor = binding.root.rippleColor
-        if(onClickCard == null) {
+        if (onClickCard == null) {
             binding.root.rippleColor = ColorStateList.valueOf(Color.TRANSPARENT)
         }
         binding.root.setOnClickListener(onClickCard)

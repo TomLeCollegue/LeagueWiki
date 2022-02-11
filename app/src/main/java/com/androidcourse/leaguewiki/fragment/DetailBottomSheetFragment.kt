@@ -12,18 +12,16 @@ import com.androidcourse.leaguewiki.R
 import com.androidcourse.leaguewiki.databinding.FragmentRecyclerBinding
 import com.androidcourse.leaguewiki.extensions.clearTags
 import com.androidcourse.leaguewiki.items.*
-import com.androidcourse.leaguewiki.model.Passive
 import com.androidcourse.leaguewiki.model.Spell
 import com.androidcourse.leaguewiki.viewmodel.ChampDetailViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.adapters.GenericFastItemAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DetailBottomSheetFragment: BottomSheetDialogFragment() {
+class DetailBottomSheetFragment : BottomSheetDialogFragment() {
 
     private val viewModel by navGraphViewModels<ChampDetailViewModel>(R.id.nav_main)
     var spell: Spell? = null
@@ -48,7 +46,7 @@ class DetailBottomSheetFragment: BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
             viewModel.champion.collect { champ ->
-                if(!args.isLore) {
+                if (!args.isLore) {
                     spell = champ?.spells?.get(args.spellIndex)
                 }
                 refreshScreen()
@@ -72,7 +70,8 @@ class DetailBottomSheetFragment: BottomSheetDialogFragment() {
         val items = mutableListOf<GenericItem>()
         items += titleSpellItem {
             title = viewModel.champion.value?.title
-            urlImage = Constants.Server.BASE_URL + Constants.Server.IMAGE_CHAMP_URL.format(viewModel.champion.value?.id)
+            urlImage =
+                Constants.Server.BASE_URL + Constants.Server.IMAGE_CHAMP_URL.format(viewModel.champion.value?.id)
         }
         items += captionItem {
             text = viewModel.champion.value?.lore?.clearTags()
@@ -87,7 +86,8 @@ class DetailBottomSheetFragment: BottomSheetDialogFragment() {
         val items = mutableListOf<GenericItem>()
         items += titleSpellItem {
             title = spell?.name
-            urlImage = Constants.Server.BASE_URL + Constants.Server.IMAGE_SPELL_URL.format(spell?.image)
+            urlImage =
+                Constants.Server.BASE_URL + Constants.Server.IMAGE_SPELL_URL.format(spell?.image)
             spellKey = SpellItem.KeySpell.values().first { it.index == args.spellIndex }
         }
         items += captionItem {
@@ -104,7 +104,7 @@ class DetailBottomSheetFragment: BottomSheetDialogFragment() {
             spaceRes = R.dimen.spacing_large
         }
 
-        if(spell?.cooldownBurn != "0") {
+        if (spell?.cooldownBurn != "0") {
             items += statItem {
                 icRes = R.drawable.ic_tear
                 text = spell?.costBurn

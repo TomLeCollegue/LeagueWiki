@@ -7,11 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.androidcourse.leaguewiki.R
 import com.androidcourse.leaguewiki.databinding.SkinItemBinding
-import com.androidcourse.leaguewiki.extensions.setOnClickListenerOrHideRipple
 import com.bumptech.glide.Glide
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 
-class SkinItem: AbstractBindingItem<SkinItemBinding>(){
+class SkinItem : AbstractBindingItem<SkinItemBinding>() {
 
     var name: String? = null
     var urlImage: String? = null
@@ -29,7 +28,7 @@ class SkinItem: AbstractBindingItem<SkinItemBinding>(){
         Glide.with(binding.root.context).load(urlImage).into(binding.imageView)
 
         defaultRippleColor = binding.card.rippleColor
-        if(onClickCard == null) {
+        if (onClickCard == null) {
             binding.card.rippleColor = ColorStateList.valueOf(Color.TRANSPARENT)
         }
     }
@@ -38,6 +37,7 @@ class SkinItem: AbstractBindingItem<SkinItemBinding>(){
         super.unbindView(binding)
         binding.card.rippleColor = defaultRippleColor
     }
+
     override val type: Int = R.id.skin_item
 }
 

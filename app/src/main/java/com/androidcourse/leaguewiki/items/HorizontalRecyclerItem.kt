@@ -43,7 +43,7 @@ class HorizontalRecyclerItem : AbstractBindingItem<HorizontalRecyclerItemBinding
 
     override fun unbindView(binding: HorizontalRecyclerItemBinding) {
         super.unbindView(binding)
-        if(isPager) {
+        if (isPager) {
             binding.recyclerView.removeItemDecorationAt(0)
             binding.recyclerView.onFlingListener = null
         }

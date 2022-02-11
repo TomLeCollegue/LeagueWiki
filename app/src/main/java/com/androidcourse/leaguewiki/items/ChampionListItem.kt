@@ -33,7 +33,7 @@ class ChampionListItem : AbstractBindingItem<ChampionListItemBinding>() {
         binding.root.setOnClickListener(onClickCard)
         binding.favButton.setOnClickListener(onFavoriteClick)
 
-        if(isFavorite) {
+        if (isFavorite) {
             binding.favButton.setImageResource(R.drawable.ic_filled_heart)
         } else {
             binding.favButton.setImageResource(R.drawable.ic_empty_heart)

@@ -5,7 +5,10 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import com.androidcourse.leaguewiki.model.ChampionDetail
 import com.androidcourse.leaguewiki.model.ChampionInfo
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -17,11 +20,12 @@ class ChampionsRepository @Inject constructor(
 
     private val championsList: MutableStateFlow<List<ChampionInfo>?> = MutableStateFlow(null)
 
-    val favorites: Flow<List<Pair<String, Boolean>>> = favoriteDataStore.dataStore.data.map { pref ->
-        pref.asMap().toList().map {
-            Pair(it.first.name, it.second as Boolean)
+    val favorites: Flow<List<Pair<String, Boolean>>> =
+        favoriteDataStore.dataStore.data.map { pref ->
+            pref.asMap().toList().map {
+                Pair(it.first.name, it.second as Boolean)
+            }
         }
-    }
 
     val championsWithFavorites = championsList.combine(
         favorites

@@ -1,6 +1,6 @@
 package com.androidcourse.leaguewiki.model
 
-data class ChampionDetail (
+data class ChampionDetail(
     val allytips: List<String>,
     val blurb: String,
     val enemytips: List<String>,

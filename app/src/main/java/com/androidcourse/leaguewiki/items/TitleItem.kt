@@ -6,7 +6,7 @@ import com.androidcourse.leaguewiki.R
 import com.androidcourse.leaguewiki.databinding.TitleItemBinding
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 
-class TitleItem: AbstractBindingItem<TitleItemBinding>() {
+class TitleItem : AbstractBindingItem<TitleItemBinding>() {
 
     var text: String? = null
 
@@ -22,4 +22,4 @@ class TitleItem: AbstractBindingItem<TitleItemBinding>() {
     override val type: Int = R.id.title_item
 }
 
-fun titleItem(block: TitleItem.() -> Unit ) = TitleItem().apply(block)
+fun titleItem(block: TitleItem.() -> Unit) = TitleItem().apply(block)

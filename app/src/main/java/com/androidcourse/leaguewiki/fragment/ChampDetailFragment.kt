@@ -1,12 +1,7 @@
 package com.androidcourse.leaguewiki.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
@@ -70,7 +65,8 @@ class ChampDetailFragment : RecyclerFragment() {
         viewModel.isFavorite.observe(viewLifecycleOwner) {
             refreshScreen()
         }
-        val urlImage = Constants.Server.BASE_URL + Constants.Server.IMAGE_SPASH_URL.format(args.idChamp, 0)
+        val urlImage =
+            Constants.Server.BASE_URL + Constants.Server.IMAGE_SPASH_URL.format(args.idChamp, 0)
 
         binding?.toolbarImageView?.let {
             Glide.with(requireContext()).load(urlImage).into(it)
@@ -217,7 +213,8 @@ class ChampDetailFragment : RecyclerFragment() {
 
     override fun refreshScreen() {
         super.refreshScreen()
-        val drawable = if (viewModel.isFavorite.value == true) R.drawable.ic_filled_heart else R.drawable.ic_empty_heart
+        val drawable =
+            if (viewModel.isFavorite.value == true) R.drawable.ic_filled_heart else R.drawable.ic_empty_heart
         menuItem?.icon = ContextCompat.getDrawable(requireContext(), drawable)
     }
 

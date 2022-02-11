@@ -8,7 +8,7 @@ import com.androidcourse.leaguewiki.R
 import com.androidcourse.leaguewiki.databinding.SpaceItemBinding
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 
-class SpaceItem: AbstractBindingItem<SpaceItemBinding>() {
+class SpaceItem : AbstractBindingItem<SpaceItemBinding>() {
 
     override val type: Int = R.id.space_item
 

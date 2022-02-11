@@ -9,7 +9,7 @@ import com.androidcourse.leaguewiki.databinding.SearchBarItemBinding
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 
 
-class SearchBarItem: AbstractBindingItem<SearchBarItemBinding>() {
+class SearchBarItem : AbstractBindingItem<SearchBarItemBinding>() {
 
     override val type: Int = R.id.search_item
     var onTextChange: ((String) -> Unit)? = null

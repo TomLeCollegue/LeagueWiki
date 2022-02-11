@@ -5,11 +5,10 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.androidcourse.leaguewiki.R
 import com.androidcourse.leaguewiki.databinding.TitleSpellItemBinding
-import com.androidcourse.leaguewiki.extensions.setTextOrHide
 import com.bumptech.glide.Glide
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 
-class TitleSpellItem: AbstractBindingItem<TitleSpellItemBinding>() {
+class TitleSpellItem : AbstractBindingItem<TitleSpellItemBinding>() {
 
     var title: String? = null
     var urlImage: String? = null
@@ -27,7 +26,7 @@ class TitleSpellItem: AbstractBindingItem<TitleSpellItemBinding>() {
         binding.nameTextView.text = title
         Glide.with(binding.root.context).load(urlImage).into(binding.spellImageView)
 
-        if(spellKey == null) {
+        if (spellKey == null) {
             binding.spellKeyImageView.isVisible = false
         } else {
             spellKey?.let {

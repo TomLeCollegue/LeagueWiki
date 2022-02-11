@@ -8,7 +8,7 @@ import com.androidcourse.leaguewiki.R
 import com.androidcourse.leaguewiki.databinding.StatItemBinding
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 
-class StatItem: AbstractBindingItem<StatItemBinding>() {
+class StatItem : AbstractBindingItem<StatItemBinding>() {
 
     var text: String? = null
 
@@ -23,7 +23,7 @@ class StatItem: AbstractBindingItem<StatItemBinding>() {
         super.bindView(binding, payloads)
         binding.textView.text = text
 
-        if(icRes == null) {
+        if (icRes == null) {
             binding.statImageView.isVisible = false
         } else {
             icRes?.let {
@@ -31,6 +31,7 @@ class StatItem: AbstractBindingItem<StatItemBinding>() {
             }
         }
     }
+
     override val type: Int = R.id.stat_item
 
 }

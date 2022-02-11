@@ -150,26 +150,26 @@ data class ApiStats(
     val spellblockperlevel: Double?
 ) {
     fun toStats() = Stats(
-       armor,
-       armorperlevel,
-       attackdamage,
-       attackdamageperlevel,
-       attackrange,
-       attackspeed,
-       attackspeedperlevel,
-       crit,
-       critperlevel,
-       hp,
-       hpperlevel,
-       hpregen,
-       hpregenperlevel,
-       movespeed,
-       mp,
-       mpperlevel,
-       mpregen,
-       mpregenperlevel,
-       spellblock,
-       spellblockperlevel
+        armor,
+        armorperlevel,
+        attackdamage,
+        attackdamageperlevel,
+        attackrange,
+        attackspeed,
+        attackspeedperlevel,
+        crit,
+        critperlevel,
+        hp,
+        hpperlevel,
+        hpregen,
+        hpregenperlevel,
+        movespeed,
+        mp,
+        mpperlevel,
+        mpregen,
+        mpregenperlevel,
+        spellblock,
+        spellblockperlevel
     )
 }
 

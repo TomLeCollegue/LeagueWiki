@@ -6,7 +6,7 @@ import com.androidcourse.leaguewiki.R
 import com.androidcourse.leaguewiki.databinding.TagItemBinding
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 
-class TagItem: AbstractBindingItem<TagItemBinding>() {
+class TagItem : AbstractBindingItem<TagItemBinding>() {
 
     var text: String? = null
     override fun createBinding(inflater: LayoutInflater, parent: ViewGroup?): TagItemBinding {
