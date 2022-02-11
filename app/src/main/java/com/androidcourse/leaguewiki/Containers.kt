@@ -30,8 +30,8 @@ class Containers {
 
     @Singleton
     @Provides
-    fun championsDataSource(retrofitClient: RetrofitClient): ChampionsDataSource {
-        return ChampionsDataSource(retrofitClient)
+    fun championsDataSource(@ApplicationContext appContext: Context, retrofitClient: RetrofitClient): ChampionsDataSource {
+        return ChampionsDataSource(retrofitClient, appContext)
     }
 
     @Singleton

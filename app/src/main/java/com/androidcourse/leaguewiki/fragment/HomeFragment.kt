@@ -41,7 +41,7 @@ class HomeFragment : RecyclerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(binding?.toolbar)
-        (activity as AppCompatActivity).supportActionBar?.title = "LeagueWiki"
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.home_screen_title_toolbar)
         setHasOptionsMenu(true)
 
         lifecycleScope.launch {
@@ -51,7 +51,6 @@ class HomeFragment : RecyclerFragment() {
         }
 
         viewModel.champions.observe(viewLifecycleOwner) {
-            Log.d("observe", "refresh fragment")
             refreshScreen()
         }
     }
@@ -59,7 +58,7 @@ class HomeFragment : RecyclerFragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_home, menu)
         val searchView = menu.findItem(R.id.app_bar_search).actionView as SearchView
-        searchView.queryHint = "Rechercher"
+        searchView.queryHint = getString(R.string.home_screen_reseach)
         searchView.setQuery(viewModel.research.value, false)
         searchView.maxWidth = Integer.MAX_VALUE
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -84,14 +83,14 @@ class HomeFragment : RecyclerFragment() {
         }?.let {
             if (!it.isNullOrEmpty()) {
                 items += titleItem {
-                    text = "Champions Favoris"
+                    text = getString(R.string.home_screen_fav_champ_section)
                     identifier = text.hashCode().toLong()
                 }
                 it.mapTo(items) { champ ->
                     getChampionItem(true, champ)
                 }
                 items += titleItem {
-                    text = "Tous les champions"
+                    text = getString(R.string.home_screen_all_champ_section)
                     identifier = text.hashCode().toLong()
                 }
             }

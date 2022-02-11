@@ -115,7 +115,7 @@ class ChampDetailFragment : RecyclerFragment() {
         }
 
         items += sectionTitleItem {
-            title = "Lore"
+            title = getString(R.string.champ_detail_screen_lore_section)
             identifier = title.hashCode().toLong()
         }
         items += titleItem {
@@ -138,7 +138,7 @@ class ChampDetailFragment : RecyclerFragment() {
         }
 
         items += sectionTitleItem {
-            title = "Passif"
+            title = getString(R.string.champ_detail_screen_passive_section)
             identifier = title.hashCode().toLong()
         }
 
@@ -153,7 +153,7 @@ class ChampDetailFragment : RecyclerFragment() {
         }
 
         items += sectionTitleItem {
-            title = "Abilités"
+            title = getString(R.string.champ_detail_screen_abilities_section)
             identifier = title.hashCode().toLong()
         }
         viewModel.champion.value?.spells?.mapIndexedTo(items) { index, spell ->
@@ -176,7 +176,7 @@ class ChampDetailFragment : RecyclerFragment() {
         }
 
         items += sectionTitleItem {
-            title = "Skins"
+            title = getString(R.string.champ_detail_screen_skins_section)
             identifier = title.hashCode().toLong()
         }
 

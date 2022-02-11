@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LeagueWiki</string>
+    <string name="champ_detail_screen_lore_section">Lore</string>
+    <string name="champ_detail_screen_passive_section">Passif</string>
+    <string name="champ_detail_screen_abilities_section">Abilités</string>
+    <string name="champ_detail_screen_skins_section">Skins</string>
+    <string name="home_screen_reseach">Rechercher</string>
+    <string name="home_screen_title_toolbar">LeagueWiki</string>
+    <string name="home_screen_fav_champ_section">Champions Favoris</string>
+    <string name="home_screen_all_champ_section">Tous les champions</string>
+    <string name="api_language">fr_FR</string>
+</resources>
