@@ -53,6 +53,7 @@ class HomeFragment : RecyclerFragment() {
                 refreshScreen()
             }
         }
+
         viewModel.champions.observe(viewLifecycleOwner) {
             Log.d("observe", "refresh fragment")
             refreshScreen()

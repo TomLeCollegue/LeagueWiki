@@ -1,7 +1,6 @@
 package com.androidcourse.leaguewiki.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -14,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.androidcourse.leaguewiki.Constants
 import com.androidcourse.leaguewiki.R
 import com.androidcourse.leaguewiki.databinding.FragmentChampDetailBinding
@@ -27,6 +27,8 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ChampDetailFragment : RecyclerFragment() {
+
+    private val recyclerViewPool = RecyclerView.RecycledViewPool()
 
     private val viewModel by navGraphViewModels<ChampDetailViewModel>(R.id.nav_main) {
         defaultViewModelProviderFactory
@@ -54,6 +56,7 @@ class ChampDetailFragment : RecyclerFragment() {
     ): View {
         binding = FragmentChampDetailBinding.inflate(inflater, container, false).apply {
             recyclerView.adapter = fastAdapter
+            recyclerView.setRecycledViewPool(recyclerViewPool)
         }
         return binding!!.root
     }
@@ -67,9 +70,8 @@ class ChampDetailFragment : RecyclerFragment() {
         viewModel.isFavorite.observe(viewLifecycleOwner) {
             refreshScreen()
         }
+        val urlImage = Constants.Server.BASE_URL + Constants.Server.IMAGE_SPASH_URL.format(args.idChamp, 0)
 
-        val urlImage =
-            Constants.Server.BASE_URL + Constants.Server.IMAGE_SPASH_URL.format(args.idChamp, 0)
         binding?.toolbarImageView?.let {
             Glide.with(requireContext()).load(urlImage).into(it)
         }
@@ -100,6 +102,7 @@ class ChampDetailFragment : RecyclerFragment() {
                 tagList += spaceItem {
                     spaceRes = R.dimen.spacing_large
                     orientation = SpaceItem.Orientation.HORIZONTAL
+                    identifier = tagList.size.toLong()
                 }
                 tagList += tagItem {
                     text = it
@@ -110,6 +113,7 @@ class ChampDetailFragment : RecyclerFragment() {
                 spaceRes = R.dimen.spacing_large
                 orientation = SpaceItem.Orientation.HORIZONTAL
             }
+            viewPool = recyclerViewPool
             itemsList = tagList
             identifier = "tags".hashCode().toLong()
         }
@@ -182,6 +186,7 @@ class ChampDetailFragment : RecyclerFragment() {
 
         items += horizontalRecyclerItem {
             itemsList = getSkinsItems()
+            viewPool = recyclerViewPool
             isPager = true
             identifier = "skins".hashCode().toLong()
         }

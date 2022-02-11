@@ -25,7 +25,13 @@ class HomeViewModel @Inject constructor(
     val research: StateFlow<String>
         get() = _research
 
-    val champions: LiveData<List<ChampionInfo>?> = championsRepository.getChampionWithFavorite().asLiveData()
+    init {
+        viewModelScope.launch {
+            championsRepository.getChampionsList()
+        }
+    }
+
+    val champions: LiveData<List<ChampionInfo>?> = championsRepository.championsWithFavorites.asLiveData()
 
     fun setResearch(value: String) {
         _research.value = value

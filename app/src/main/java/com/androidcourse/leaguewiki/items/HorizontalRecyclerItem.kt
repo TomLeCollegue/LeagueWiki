@@ -3,6 +3,7 @@ package com.androidcourse.leaguewiki.items
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.androidcourse.leaguewiki.R
 import com.androidcourse.leaguewiki.databinding.HorizontalRecyclerItemBinding
@@ -13,19 +14,25 @@ import com.mikepenz.fastadapter.binding.AbstractBindingItem
 class HorizontalRecyclerItem : AbstractBindingItem<HorizontalRecyclerItemBinding>() {
 
     var itemsList: List<GenericItem> = listOf()
-    private val fastAdapter = GenericFastItemAdapter()
     var isPager = false
+    var viewPool = RecyclerView.RecycledViewPool()
 
     override fun createBinding(
         inflater: LayoutInflater,
         parent: ViewGroup?
     ): HorizontalRecyclerItemBinding {
-        return HorizontalRecyclerItemBinding.inflate(inflater, parent, false)
+        return HorizontalRecyclerItemBinding.inflate(inflater, parent, false).apply {
+            recyclerView.setRecycledViewPool(viewPool)
+        }
     }
 
     override fun bindView(binding: HorizontalRecyclerItemBinding, payloads: List<Any>) {
         super.bindView(binding, payloads)
-        binding.recyclerView.adapter = fastAdapter
+        var fastAdapter = binding.recyclerView.adapter as? GenericFastItemAdapter
+        if (fastAdapter == null) {
+            fastAdapter = GenericFastItemAdapter()
+            binding.recyclerView.adapter = fastAdapter
+        }
         fastAdapter.setNewList(itemsList)
         if (binding.recyclerView.onFlingListener == null && isPager) {
             binding.recyclerView.addItemDecoration(CirclePagerIndicatorDecoration())

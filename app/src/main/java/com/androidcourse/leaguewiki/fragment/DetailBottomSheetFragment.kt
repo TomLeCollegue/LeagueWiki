@@ -27,7 +27,6 @@ class DetailBottomSheetFragment: BottomSheetDialogFragment() {
 
     private val viewModel by navGraphViewModels<ChampDetailViewModel>(R.id.nav_main)
     var spell: Spell? = null
-    var passive: Passive? = null
 
     val args: DetailBottomSheetFragmentArgs by navArgs()
 
