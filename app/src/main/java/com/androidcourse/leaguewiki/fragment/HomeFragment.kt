@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.*
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -53,6 +54,19 @@ class HomeFragment : RecyclerFragment() {
         viewModel.champions.observe(viewLifecycleOwner) {
             refreshScreen()
         }
+    }
+
+    override fun refreshScreen() {
+        super.refreshScreen()
+        if(viewModel.champions.value.isNullOrEmpty()) {
+            binding?.emptyLayout?.root?.isVisible = true
+            binding?.emptyLayout?.refreshButton?.setOnClickListener {
+                viewModel.updateChamps()
+            }
+        } else {
+            binding?.emptyLayout?.root?.isVisible = false
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -118,7 +132,7 @@ class HomeFragment : RecyclerFragment() {
                 )
             }
             onFavoriteClick = View.OnClickListener {
-                champ.id?.let { it1 -> viewModel.setFavorite(it1, !champ.isFavorite) }
+                champ.id.let { it1 -> viewModel.setFavorite(it1, !champ.isFavorite) }
             }
             isFavorite = champ.isFavorite
         }

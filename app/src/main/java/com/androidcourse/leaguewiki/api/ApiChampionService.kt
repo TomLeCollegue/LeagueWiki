@@ -8,15 +8,17 @@ import retrofit2.http.Path
 
 interface ApiChampionService {
 
-    @GET("12.3.1/data/{language}/champion.json")
+    @GET("cdn/{version}/data/{language}/champion.json")
     suspend fun getChampions(
-        @Path("language") language: String
+        @Path("language") language: String,
+        @Path("version") version: String = "12.3.1"
     ): Response<ApiModelChampionList>
 
-    @GET("12.3.1/data/{language}/champion/{champId}.json")
+    @GET("cdn/{version}/data/{language}/champion/{champId}.json")
     suspend fun getDetailChamp(
         @Path("language") language: String,
-        @Path("champId") champId: String
+        @Path("champId") champId: String,
+        @Path("version") version: String = "12.3.1"
     ): Response<ApiModelChampionDetail>
 
 }

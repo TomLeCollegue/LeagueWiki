@@ -9,7 +9,7 @@ data class ApiModelChampionList(
 
 data class ApiChampion(
     val blurb: String?,
-    val id: String?,
+    val id: String,
     val key: String?,
     val name: String?,
     val partype: String?,

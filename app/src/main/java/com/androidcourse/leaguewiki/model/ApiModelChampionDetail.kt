@@ -7,7 +7,7 @@ data class ApiModelChampionDetail(
     val version: String
 ) {
     fun getChampionDetail(): ChampionDetail =
-        data.toList()[0].second.toChampionDetail()
+        data.toList()[0].second.toChampionDetail(version)
 }
 
 data class ApiChampionDetail(
@@ -27,7 +27,7 @@ data class ApiChampionDetail(
     val spells: List<ApiSpell>,
     val stats: ApiStats,
 ) {
-    fun toChampionDetail() = ChampionDetail(
+    fun toChampionDetail(version: String) = ChampionDetail(
         allytips,
         blurb,
         enemytips,
@@ -43,6 +43,7 @@ data class ApiChampionDetail(
         title,
         spells.map { it.toSpell() },
         stats.toStats(),
+        version
     )
 }
 

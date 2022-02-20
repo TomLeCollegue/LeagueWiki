@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -25,9 +26,7 @@ class ChampDetailFragment : RecyclerFragment() {
 
     private val recyclerViewPool = RecyclerView.RecycledViewPool()
 
-    private val viewModel by navGraphViewModels<ChampDetailViewModel>(R.id.nav_main) {
-        defaultViewModelProviderFactory
-    }
+    private val viewModel: ChampDetailViewModel by viewModels()
 
     private val args: ChampDetailFragmentArgs by navArgs()
     var binding: FragmentChampDetailBinding? = null
@@ -36,7 +35,7 @@ class ChampDetailFragment : RecyclerFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.hide()
-        args.idChamp?.let { viewModel.getChampionDetail(it) }
+        args.idChamp?.let { viewModel.getChampionDetail(it, true) }
         lifecycleScope.launch {
             viewModel.champion.collect {
                 refreshScreen()
@@ -62,9 +61,6 @@ class ChampDetailFragment : RecyclerFragment() {
         (activity as AppCompatActivity).supportActionBar?.title = args.idChamp
         setHasOptionsMenu(true)
 
-        viewModel.isFavorite.observe(viewLifecycleOwner) {
-            refreshScreen()
-        }
         val urlImage =
             Constants.Server.BASE_URL + Constants.Server.IMAGE_SPASH_URL.format(args.idChamp, 0)
 
@@ -81,13 +77,22 @@ class ChampDetailFragment : RecyclerFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.heart) {
-            viewModel.setFavorite(!(viewModel.isFavorite.value ?: false))
+            viewModel.setFavorite(false)
         }
         return super.onOptionsItemSelected(item)
     }
 
     override fun getItems(): List<GenericItem> {
         val items = mutableListOf<GenericItem>()
+
+        if(viewModel.champion.value == null) {
+            items += emptyScreenItem {
+                onClickRefresh = View.OnClickListener {
+                    args.idChamp?.let { id -> viewModel.fetchChampion(id) }
+                }
+            }
+            return items
+        }
 
         items += spaceItem {
             spaceRes = R.dimen.spacing_large
@@ -131,7 +136,8 @@ class ChampDetailFragment : RecyclerFragment() {
                 findNavController().navigate(
                     ChampDetailFragmentDirections.actionChampDetailFragmentToDetailBottomSheetFragment(
                         0,
-                        true
+                        true,
+                        args.idChamp
                     )
                 )
             }
@@ -167,7 +173,8 @@ class ChampDetailFragment : RecyclerFragment() {
                     findNavController().navigate(
                         ChampDetailFragmentDirections.actionChampDetailFragmentToDetailBottomSheetFragment(
                             index,
-                            false
+                            false,
+                            args.idChamp
                         )
                     )
                 }
@@ -192,7 +199,7 @@ class ChampDetailFragment : RecyclerFragment() {
 
     private fun getSkinsItems(): List<GenericItem> {
         val items = mutableListOf<GenericItem>()
-        viewModel.champion.value?.skins?.filter { it.name != "default" }?.forEach {
+        viewModel.champion.value?.skins?.filter { it.name != Constants.Champions.DEFAULT_SKIN_NAME }?.forEach {
             items += skinItem {
                 name = it.name
                 urlImage = Constants.Server.BASE_URL + Constants.Server.IMAGE_SPASH_URL.format(
@@ -214,7 +221,7 @@ class ChampDetailFragment : RecyclerFragment() {
     override fun refreshScreen() {
         super.refreshScreen()
         val drawable =
-            if (viewModel.isFavorite.value == true) R.drawable.ic_filled_heart else R.drawable.ic_empty_heart
+            if (true) R.drawable.ic_filled_heart else R.drawable.ic_empty_heart
         menuItem?.icon = ContextCompat.getDrawable(requireContext(), drawable)
     }
 

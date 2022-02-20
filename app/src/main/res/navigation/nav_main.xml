@@ -31,5 +31,9 @@
         <argument
             android:name="isLore"
             app:argType="boolean" />
+        <argument
+            android:name="champId"
+            app:argType="string"
+            app:nullable="true" />
     </dialog>
 </navigation>

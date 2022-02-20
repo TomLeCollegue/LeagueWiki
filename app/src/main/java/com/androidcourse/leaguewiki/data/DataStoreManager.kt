@@ -13,4 +13,5 @@ class DataStoreManager @Inject constructor(@ApplicationContext context: Context)
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("Favorites")
     val dataStore = context.dataStore
+
 }

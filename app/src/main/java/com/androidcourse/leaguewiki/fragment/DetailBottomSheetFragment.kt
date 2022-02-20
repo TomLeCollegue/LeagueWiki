@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
@@ -23,7 +24,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class DetailBottomSheetFragment : BottomSheetDialogFragment() {
 
-    private val viewModel by navGraphViewModels<ChampDetailViewModel>(R.id.nav_main)
+    private val viewModel: ChampDetailViewModel by viewModels()
     var spell: Spell? = null
 
     val args: DetailBottomSheetFragmentArgs by navArgs()
@@ -36,6 +37,7 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        args.champId?.let { viewModel.getChampionDetail(it, false) }
         binding = FragmentRecyclerBinding.inflate(inflater, container, false).apply {
             recyclerView.adapter = fastAdapter
         }

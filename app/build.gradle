@@ -65,6 +65,11 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:_"
     implementation "com.squareup.okhttp3:okhttp:_"
 
+    implementation("androidx.room:room-runtime:_")
+    implementation("androidx.room:room-ktx:_")
+    // To use Kotlin annotation processing tool (kapt)
+    kapt("androidx.room:room-compiler:_")
+
     // Hilt
     implementation "com.google.dagger:hilt-android:_"
     kapt "com.google.dagger:hilt-compiler:_"

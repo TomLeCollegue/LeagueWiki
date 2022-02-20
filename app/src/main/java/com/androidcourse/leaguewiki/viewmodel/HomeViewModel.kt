@@ -22,13 +22,16 @@ class HomeViewModel @Inject constructor(
         get() = _research
 
     init {
+        updateChamps()
+    }
+
+    fun updateChamps() {
         viewModelScope.launch {
-            championsRepository.getChampionsList()
+            championsRepository.onAppForeground()
         }
     }
 
-    val champions: LiveData<List<ChampionInfo>?> =
-        championsRepository.championsWithFavorites.asLiveData()
+    val champions: LiveData<List<ChampionInfo>?> = championsRepository.championsList.asLiveData()
 
     fun setResearch(value: String) {
         _research.value = value

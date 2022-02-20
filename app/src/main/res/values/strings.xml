@@ -10,5 +10,7 @@
     <string name="home_screen_all_champ_section">All Champions</string>
 
     <string name="api_language">en_US</string>
+    <string name="offline_text">Are you offline ?</string>
+    <string name="refresh_button">Refresh</string>
 
 </resources>

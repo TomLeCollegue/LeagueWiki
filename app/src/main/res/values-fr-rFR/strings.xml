@@ -10,4 +10,6 @@
     <string name="home_screen_fav_champ_section">Champions Favoris</string>
     <string name="home_screen_all_champ_section">Tous les champions</string>
     <string name="api_language">fr_FR</string>
+    <string name="offline_text">Etes vous hors ligne ?</string>
+    <string name="refresh_button">Rafraîchir</string>
 </resources>
