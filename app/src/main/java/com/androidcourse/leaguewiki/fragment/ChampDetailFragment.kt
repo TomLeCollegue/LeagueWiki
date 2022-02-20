@@ -29,8 +29,8 @@ class ChampDetailFragment : RecyclerFragment() {
     private val viewModel: ChampDetailViewModel by viewModels()
 
     private val args: ChampDetailFragmentArgs by navArgs()
-    var binding: FragmentChampDetailBinding? = null
-    var menuItem: MenuItem? = null
+    private var binding: FragmentChampDetailBinding? = null
+    private var menuItem: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,7 +77,7 @@ class ChampDetailFragment : RecyclerFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.heart) {
-            viewModel.setFavorite(false)
+            viewModel.toggleFavorite()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -221,7 +221,7 @@ class ChampDetailFragment : RecyclerFragment() {
     override fun refreshScreen() {
         super.refreshScreen()
         val drawable =
-            if (true) R.drawable.ic_filled_heart else R.drawable.ic_empty_heart
+            if (viewModel.champion.value?.isFavorite == true) R.drawable.ic_filled_heart else R.drawable.ic_empty_heart
         menuItem?.icon = ContextCompat.getDrawable(requireContext(), drawable)
     }
 

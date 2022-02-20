@@ -13,4 +13,5 @@
     <item name="title_spell_item" type="id" />
     <item name="stat_item" type="id" />
     <item name="empty_screen_item" type="id" />
+    <item name="video_item" type="id" />
 </resources>

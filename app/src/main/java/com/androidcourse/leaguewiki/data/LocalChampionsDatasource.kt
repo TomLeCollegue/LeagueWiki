@@ -5,6 +5,7 @@ import com.androidcourse.leaguewiki.AppDataBase
 import com.androidcourse.leaguewiki.model.ChampionDetail
 import com.androidcourse.leaguewiki.model.ChampionInfo
 import com.androidcourse.leaguewiki.model.room.ChampionDetailRoom
+import com.androidcourse.leaguewiki.model.room.ChampionFavoriteRoom
 import com.androidcourse.leaguewiki.model.room.ChampionInfoRoom
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -24,13 +25,13 @@ class LocalChampionsDatasource @Inject constructor(
     val championInfoFlow
         get() = db.championInfoDao().getAll().map {
             it.map { info ->
-                info.toChampionInfo()
+                info.championDetail.toChampionInfo(info.favorite?.isFavorite ?: false)
             }
         }
 
     fun championDetailByIdFlow(id: String): Flow<ChampionDetail?> {
         return db.championDetailDao().getById(id).map {
-            it?.toChampionDetail()
+            it?.championDetail?.toChampionDetail(it.favorite?.isFavorite ?: false)
         }
     }
 
@@ -45,6 +46,12 @@ class LocalChampionsDatasource @Inject constructor(
             db.championInfoDao().insertAll(*championInfo.map {
                 ChampionInfoRoom.fromChampionInfo(it)
             }.toTypedArray())
+        }
+    }
+
+    suspend fun insertFavorite(idChamp: String, isFavorite: Boolean) {
+        withContext(Dispatchers.IO) {
+            db.championFavoriteDao().insertAll(ChampionFavoriteRoom(idChamp, isFavorite))
         }
     }
 

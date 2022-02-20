@@ -8,6 +8,8 @@ object Constants {
         const val IMAGE_CHAMP_URL: String = "cdn/12.4.1/img/champion/%s.png"
         const val IMAGE_SPELL_URL: String = "cdn/12.4.1/img/spell/%s"
         const val IMAGE_PASSIVE_URL: String = "cdn/12.4.1/img/passive/%s"
+
+        const val VIDEO_URL_PASSIVE: String = "https://d28xe8vt774jo5.cloudfront.net/champion-abilities/%s/ability_%s_%s1.webm"
     }
 
     object Config {

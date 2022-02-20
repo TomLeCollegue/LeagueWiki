@@ -29,7 +29,7 @@ class ChampionsRepository @Inject constructor(
     }
 
     suspend fun setFavorite(idChamp: String, isFavorite: Boolean) {
-
+        localChampionsDatasource.insertFavorite(idChamp, isFavorite)
     }
 
     suspend fun onAppForeground() {

@@ -1,0 +1,344 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "bd296597e2007be53f30e42bfbebd2f1",
+    "entities": [
+      {
+        "tableName": "ChampionDetailRoom",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`allytips` TEXT NOT NULL, `blurb` TEXT NOT NULL, `enemytips` TEXT NOT NULL, `id` TEXT NOT NULL, `key` TEXT NOT NULL, `lore` TEXT NOT NULL, `name` TEXT NOT NULL, `partype` TEXT NOT NULL, `skins` TEXT NOT NULL, `tags` TEXT NOT NULL, `title` TEXT NOT NULL, `spells` TEXT NOT NULL, `version` TEXT NOT NULL, `isFavorite` INTEGER NOT NULL, `attack` REAL NOT NULL, `defense` REAL NOT NULL, `difficulty` REAL NOT NULL, `magic` REAL NOT NULL, `description` TEXT NOT NULL, `image` TEXT NOT NULL, `namePassive` TEXT NOT NULL, `armor` REAL, `armorperlevel` REAL, `attackdamage` REAL, `attackdamageperlevel` REAL, `attackrange` REAL, `attackspeed` REAL, `attackspeedperlevel` REAL, `crit` REAL, `critperlevel` REAL, `hp` REAL, `hpperlevel` REAL, `hpregen` REAL, `hpregenperlevel` REAL, `movespeed` REAL, `mp` REAL, `mpperlevel` REAL, `mpregen` REAL, `mpregenperlevel` REAL, `spellblock` REAL, `spellblockperlevel` REAL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "allytips",
+            "columnName": "allytips",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "blurb",
+            "columnName": "blurb",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "enemytips",
+            "columnName": "enemytips",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "key",
+            "columnName": "key",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lore",
+            "columnName": "lore",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "partype",
+            "columnName": "partype",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "skins",
+            "columnName": "skins",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tags",
+            "columnName": "tags",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "spells",
+            "columnName": "spells",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "version",
+            "columnName": "version",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isFavorite",
+            "columnName": "isFavorite",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "info.attack",
+            "columnName": "attack",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "info.defense",
+            "columnName": "defense",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "info.difficulty",
+            "columnName": "difficulty",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "info.magic",
+            "columnName": "magic",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "passive.description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "passive.image",
+            "columnName": "image",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "passive.namePassive",
+            "columnName": "namePassive",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "stats.armor",
+            "columnName": "armor",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stats.armorperlevel",
+            "columnName": "armorperlevel",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stats.attackdamage",
+            "columnName": "attackdamage",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stats.attackdamageperlevel",
+            "columnName": "attackdamageperlevel",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stats.attackrange",
+            "columnName": "attackrange",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stats.attackspeed",
+            "columnName": "attackspeed",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stats.attackspeedperlevel",
+            "columnName": "attackspeedperlevel",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stats.crit",
+            "columnName": "crit",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stats.critperlevel",
+            "columnName": "critperlevel",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stats.hp",
+            "columnName": "hp",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stats.hpperlevel",
+            "columnName": "hpperlevel",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stats.hpregen",
+            "columnName": "hpregen",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stats.hpregenperlevel",
+            "columnName": "hpregenperlevel",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stats.movespeed",
+            "columnName": "movespeed",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stats.mp",
+            "columnName": "mp",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stats.mpperlevel",
+            "columnName": "mpperlevel",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stats.mpregen",
+            "columnName": "mpregen",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stats.mpregenperlevel",
+            "columnName": "mpregenperlevel",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stats.spellblock",
+            "columnName": "spellblock",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stats.spellblockperlevel",
+            "columnName": "spellblockperlevel",
+            "affinity": "REAL",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ChampionInfoRoom",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT, `title` TEXT, `version` TEXT, `isFavorite` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "version",
+            "columnName": "version",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isFavorite",
+            "columnName": "isFavorite",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ChampionFavoriteRoom",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`champId` TEXT NOT NULL, `isFavorite` INTEGER NOT NULL, PRIMARY KEY(`champId`))",
+        "fields": [
+          {
+            "fieldPath": "champId",
+            "columnName": "champId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isFavorite",
+            "columnName": "isFavorite",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "champId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bd296597e2007be53f30e42bfbebd2f1')"
+    ]
+  }
+}

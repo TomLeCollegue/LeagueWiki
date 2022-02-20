@@ -28,9 +28,10 @@ data class ChampionDetailRoom(
     val title: String,
     val spells: List<SpellRoom>,
     @Embedded val stats: StatsRoom,
-    val version: String
+    val version: String,
+    val isFavorite: Boolean = false
 ) {
-    fun toChampionDetail() = ChampionDetail(
+    fun toChampionDetail(isFavorite: Boolean) = ChampionDetail(
         allytips,
         blurb,
         enemytips,
@@ -50,7 +51,8 @@ data class ChampionDetailRoom(
             it.toSpell()
         },
         stats.toStats(),
-        version
+        version,
+        isFavorite
     )
     companion object {
         fun fromChampionDetail(championDetail: ChampionDetail) = ChampionDetailRoom(

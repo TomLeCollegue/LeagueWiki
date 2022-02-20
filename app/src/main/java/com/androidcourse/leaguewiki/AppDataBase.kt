@@ -1,6 +1,7 @@
 package com.androidcourse.leaguewiki
 
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -8,7 +9,9 @@ import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import com.androidcourse.leaguewiki.dao.ChampionDetailDao
 import com.androidcourse.leaguewiki.dao.ChampionInfoDao
+import com.androidcourse.leaguewiki.dao.FavoriteChampionDao
 import com.androidcourse.leaguewiki.model.room.ChampionDetailRoom
+import com.androidcourse.leaguewiki.model.room.ChampionFavoriteRoom
 import com.androidcourse.leaguewiki.model.room.ChampionInfoRoom
 import com.androidcourse.leaguewiki.model.room.SkinRoom
 import com.androidcourse.leaguewiki.model.room.SpellRoom
@@ -18,13 +21,15 @@ import com.google.gson.Gson
 @Database(
     entities = [
         ChampionDetailRoom::class,
-        ChampionInfoRoom::class
+        ChampionInfoRoom::class,
+        ChampionFavoriteRoom::class
     ],
-    version = 1
+    version = 1,
 )
 abstract class AppDataBase : RoomDatabase() {
     abstract fun championInfoDao(): ChampionInfoDao
     abstract fun championDetailDao(): ChampionDetailDao
+    abstract fun championFavoriteDao(): FavoriteChampionDao
 
     companion object {
         fun build(context: Context, name: String): AppDataBase =

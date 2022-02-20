@@ -12,7 +12,7 @@ data class ChampionInfoRoom (
     val version: String?,
     var isFavorite: Boolean = false
 ) {
-    fun toChampionInfo() = ChampionInfo(
+    fun toChampionInfo(isFavorite: Boolean) = ChampionInfo(
         id, name, title, version, isFavorite
     )
     companion object {

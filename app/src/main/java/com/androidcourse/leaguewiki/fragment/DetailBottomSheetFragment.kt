@@ -25,12 +25,12 @@ import kotlinx.coroutines.launch
 class DetailBottomSheetFragment : BottomSheetDialogFragment() {
 
     private val viewModel: ChampDetailViewModel by viewModels()
-    var spell: Spell? = null
+    private var spell: Spell? = null
 
-    val args: DetailBottomSheetFragmentArgs by navArgs()
+    private val args: DetailBottomSheetFragmentArgs by navArgs()
 
-    var binding: FragmentRecyclerBinding? = null
-    val fastAdapter = GenericFastItemAdapter()
+    private var binding: FragmentRecyclerBinding? = null
+    private val fastAdapter = GenericFastItemAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -122,6 +122,16 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
         items += spaceItem {
             spaceRes = R.dimen.spacing_large
         }
+
+        items += videoItem {
+            val key = ("0000" + viewModel.champion.value?.key).takeLast(4)
+            urlVideo = Constants.Server.VIDEO_URL_PASSIVE.format(
+                key,
+                key,
+                SpellItem.KeySpell.values().first { it.index == args.spellIndex }.keySpell
+            )
+        }
+
         items += spaceItem {
             spaceRes = R.dimen.spacing_large
         }

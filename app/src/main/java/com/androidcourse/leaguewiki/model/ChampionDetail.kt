@@ -16,7 +16,8 @@ data class ChampionDetail(
     val title: String,
     val spells: List<Spell>,
     val stats: Stats,
-    val version: String
+    val version: String,
+    val isFavorite: Boolean = false
 )
 
 data class Info(

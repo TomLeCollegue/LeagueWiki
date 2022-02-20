@@ -38,10 +38,10 @@ class ChampDetailViewModel @Inject constructor(
         }
     }
 
-    fun setFavorite(isFavorite: Boolean) {
+    fun toggleFavorite() {
         viewModelScope.launch {
             champion.value?.let {
-                repository.setFavorite(it.id, isFavorite)
+                repository.setFavorite(it.id, !it.isFavorite)
             }
         }
     }
