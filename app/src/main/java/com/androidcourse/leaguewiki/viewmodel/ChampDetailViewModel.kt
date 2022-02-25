@@ -7,8 +7,6 @@ import com.androidcourse.leaguewiki.model.ChampionDetail
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,9 +20,7 @@ class ChampDetailViewModel @Inject constructor(
         get() = _champion
 
     fun getChampionDetail(champId: String, fetchNew: Boolean) {
-        if(fetchNew)(
-            fetchChampion(champId)
-        )
+        if (fetchNew) (fetchChampion(champId))
         viewModelScope.launch {
             repository.championDetailById(champId).collect {
                 _champion.value = it

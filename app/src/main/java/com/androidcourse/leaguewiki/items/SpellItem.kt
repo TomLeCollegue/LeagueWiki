@@ -55,12 +55,11 @@ class SpellItem : AbstractBindingItem<SpellItemBinding>() {
 
     override val type: Int = R.id.spell_item
 
-
-    enum class KeySpell(val index: Int, @DrawableRes val res: Int, val keySpell: String) {
-        Q_SPELL(res = R.drawable.q_spell, index = 0, keySpell = "Q"),
-        Z_SPELL(res = R.drawable.z_spell, index = 1, keySpell = "W"),
-        E_SPELL(res = R.drawable.e_spell, index = 2, keySpell = "E"),
-        R_SPELL(res = R.drawable.r_spell, index = 3, keySpell = "R")
+    enum class KeySpell(val index: Int, @DrawableRes val res: Int) {
+        Q_SPELL(res = R.drawable.q_spell, index = 0),
+        Z_SPELL(res = R.drawable.z_spell, index = 1),
+        E_SPELL(res = R.drawable.e_spell, index = 2),
+        R_SPELL(res = R.drawable.r_spell, index = 3)
     }
 }
 

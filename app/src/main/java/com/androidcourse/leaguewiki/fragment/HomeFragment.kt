@@ -1,8 +1,11 @@
 package com.androidcourse.leaguewiki.fragment
 
 import android.os.Bundle
-import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -34,7 +37,9 @@ class HomeFragment : RecyclerFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false).apply {
+            emptyLayout.root.isVisible = false
             recyclerView.adapter = fastAdapter
+            shimmerLayout.shimmerFrame.startShimmer()
         }
         return binding!!.root
     }
@@ -52,21 +57,24 @@ class HomeFragment : RecyclerFragment() {
         }
 
         viewModel.champions.observe(viewLifecycleOwner) {
-            refreshScreen()
+            if (!it.isNullOrEmpty()) {
+                refreshScreen()
+            }
         }
     }
 
     override fun refreshScreen() {
         super.refreshScreen()
-        if(viewModel.champions.value.isNullOrEmpty()) {
-            binding?.emptyLayout?.root?.isVisible = true
+        if (viewModel.champions.value.isNullOrEmpty()) {
             binding?.emptyLayout?.refreshButton?.setOnClickListener {
                 viewModel.updateChamps()
             }
         } else {
             binding?.emptyLayout?.root?.isVisible = false
         }
-
+        binding?.recyclerView?.isVisible = true
+        binding?.shimmerLayout?.shimmerFrame?.stopShimmer()
+        binding?.shimmerLayout?.root?.isVisible = false
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

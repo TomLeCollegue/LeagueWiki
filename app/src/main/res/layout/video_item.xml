@@ -5,11 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/spacing_large"
+    app:cardBackgroundColor="?colorPrimary"
     app:cardCornerRadius="@dimen/card_radius">
 
     <VideoView
         android:id="@+id/videoView"
-        android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/skin_image_height" />
+        android:layout_height="@dimen/skin_image_height"
+        android:layout_gravity="center" />
+
+    <include
+        android:id="@+id/loadingLayout"
+        layout="@layout/loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </androidx.cardview.widget.CardView>

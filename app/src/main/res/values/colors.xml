@@ -6,6 +6,7 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="gray_shimmer">#ACACAC</color>
     <color name="white">#FFFFFFFF</color>
     <color name="black_pearl">#061F29</color>
     <color name="marigold">#C28F2C</color>

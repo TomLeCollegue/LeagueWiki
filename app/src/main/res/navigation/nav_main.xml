@@ -25,15 +25,13 @@
     <dialog
         android:id="@+id/detailBottomSheetFragment"
         android:name="com.androidcourse.leaguewiki.fragment.DetailBottomSheetFragment" >
-        <argument
-            android:name="spellIndex"
-            app:argType="integer" />
-        <argument
-            android:name="isLore"
-            app:argType="boolean" />
+
         <argument
             android:name="champId"
             app:argType="string"
             app:nullable="true" />
+        <argument
+            android:name="infoToDisplay"
+            app:argType="com.androidcourse.leaguewiki.fragment.DetailBottomSheetFragment$InfoToDisplay" />
     </dialog>
 </navigation>

@@ -14,7 +14,6 @@ abstract class RecyclerFragment : Fragment() {
     private var binding: FragmentRecyclerBinding? = null
     protected val fastAdapter = GenericFastItemAdapter()
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

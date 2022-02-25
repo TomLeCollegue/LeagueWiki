@@ -1,20 +1,33 @@
 package com.androidcourse.leaguewiki.fragment
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.androidcourse.leaguewiki.Constants
 import com.androidcourse.leaguewiki.R
 import com.androidcourse.leaguewiki.databinding.FragmentChampDetailBinding
-import com.androidcourse.leaguewiki.extensions.clearTags
-import com.androidcourse.leaguewiki.items.*
+import com.androidcourse.leaguewiki.items.SpaceItem
+import com.androidcourse.leaguewiki.items.SpellItem
+import com.androidcourse.leaguewiki.items.captionItem
+import com.androidcourse.leaguewiki.items.emptyScreenItem
+import com.androidcourse.leaguewiki.items.horizontalRecyclerItem
+import com.androidcourse.leaguewiki.items.sectionTitleItem
+import com.androidcourse.leaguewiki.items.skinItem
+import com.androidcourse.leaguewiki.items.spaceItem
+import com.androidcourse.leaguewiki.items.spellItem
+import com.androidcourse.leaguewiki.items.tagItem
+import com.androidcourse.leaguewiki.items.titleItem
 import com.androidcourse.leaguewiki.viewmodel.ChampDetailViewModel
 import com.bumptech.glide.Glide
 import com.mikepenz.fastadapter.GenericItem
@@ -85,7 +98,7 @@ class ChampDetailFragment : RecyclerFragment() {
     override fun getItems(): List<GenericItem> {
         val items = mutableListOf<GenericItem>()
 
-        if(viewModel.champion.value == null) {
+        if (viewModel.champion.value == null) {
             items += emptyScreenItem {
                 onClickRefresh = View.OnClickListener {
                     args.idChamp?.let { id -> viewModel.fetchChampion(id) }
@@ -135,9 +148,8 @@ class ChampDetailFragment : RecyclerFragment() {
             onClick = View.OnClickListener {
                 findNavController().navigate(
                     ChampDetailFragmentDirections.actionChampDetailFragmentToDetailBottomSheetFragment(
-                        0,
-                        true,
-                        args.idChamp
+                        args.idChamp,
+                        DetailBottomSheetFragment.InfoToDisplay.LORE
                     )
                 )
             }
@@ -151,10 +163,17 @@ class ChampDetailFragment : RecyclerFragment() {
         items += spellItem {
             viewModel.champion.value?.passive?.let { passive ->
                 title = passive.name
-                description = passive.description.clearTags()
                 urlImage =
                     Constants.Server.BASE_URL + Constants.Server.IMAGE_PASSIVE_URL.format(passive.image)
                 identifier = title.hashCode().toLong()
+                onClickCard = View.OnClickListener {
+                    findNavController().navigate(
+                        ChampDetailFragmentDirections.actionChampDetailFragmentToDetailBottomSheetFragment(
+                            args.idChamp,
+                            DetailBottomSheetFragment.InfoToDisplay.PASSIVE,
+                        )
+                    )
+                }
             }
         }
 
@@ -172,9 +191,8 @@ class ChampDetailFragment : RecyclerFragment() {
                 onClickCard = View.OnClickListener {
                     findNavController().navigate(
                         ChampDetailFragmentDirections.actionChampDetailFragmentToDetailBottomSheetFragment(
-                            index,
-                            false,
-                            args.idChamp
+                            args.idChamp,
+                            DetailBottomSheetFragment.InfoToDisplay.values().first { it.index == index },
                         )
                     )
                 }
