@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "bd296597e2007be53f30e42bfbebd2f1",
+    "identityHash": "6247d99e316da76eb14dc37ea14e9f60",
     "entities": [
       {
         "tableName": "ChampionDetailRoom",
@@ -266,7 +266,7 @@
       },
       {
         "tableName": "ChampionInfoRoom",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT, `title` TEXT, `version` TEXT, `isFavorite` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `title` TEXT, `version` TEXT, `isFavorite` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -278,7 +278,7 @@
             "fieldPath": "name",
             "columnName": "name",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "title",
@@ -338,7 +338,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bd296597e2007be53f30e42bfbebd2f1')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6247d99e316da76eb14dc37ea14e9f60')"
     ]
   }
 }

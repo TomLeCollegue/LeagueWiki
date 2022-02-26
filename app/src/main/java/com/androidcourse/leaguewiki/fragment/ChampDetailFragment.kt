@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -18,43 +19,36 @@ import com.androidcourse.leaguewiki.Constants
 import com.androidcourse.leaguewiki.R
 import com.androidcourse.leaguewiki.databinding.FragmentChampDetailBinding
 import com.androidcourse.leaguewiki.items.SpaceItem
-import com.androidcourse.leaguewiki.items.SpellItem
 import com.androidcourse.leaguewiki.items.captionItem
+import com.androidcourse.leaguewiki.items.championDetailShimmerItem
 import com.androidcourse.leaguewiki.items.emptyScreenItem
 import com.androidcourse.leaguewiki.items.horizontalRecyclerItem
+import com.androidcourse.leaguewiki.items.refreshItem
 import com.androidcourse.leaguewiki.items.sectionTitleItem
 import com.androidcourse.leaguewiki.items.skinItem
 import com.androidcourse.leaguewiki.items.spaceItem
 import com.androidcourse.leaguewiki.items.spellItem
 import com.androidcourse.leaguewiki.items.tagItem
 import com.androidcourse.leaguewiki.items.titleItem
+import com.androidcourse.leaguewiki.model.ChampionDetail
+import com.androidcourse.leaguewiki.model.DataResult
+import com.androidcourse.leaguewiki.model.KeySpell
 import com.androidcourse.leaguewiki.viewmodel.ChampDetailViewModel
 import com.bumptech.glide.Glide
 import com.mikepenz.fastadapter.GenericItem
+import com.mikepenz.fastadapter.adapters.GenericFastItemAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ChampDetailFragment : RecyclerFragment() {
+class ChampDetailFragment : Fragment() {
 
     private val recyclerViewPool = RecyclerView.RecycledViewPool()
-
     private val viewModel: ChampDetailViewModel by viewModels()
-
     private val args: ChampDetailFragmentArgs by navArgs()
     private var binding: FragmentChampDetailBinding? = null
     private var menuItem: MenuItem? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        (activity as AppCompatActivity).supportActionBar?.hide()
-        args.idChamp?.let { viewModel.getChampionDetail(it, true) }
-        lifecycleScope.launch {
-            viewModel.champion.collect {
-                refreshScreen()
-            }
-        }
-    }
+    private val fastAdapter = GenericFastItemAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -70,16 +64,16 @@ class ChampDetailFragment : RecyclerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.hide()
         (activity as AppCompatActivity).setSupportActionBar(binding?.toolbar)
-        (activity as AppCompatActivity).supportActionBar?.title = args.idChamp
+        (activity as AppCompatActivity).supportActionBar?.title = args.namechamp
         setHasOptionsMenu(true)
 
-        val urlImage =
-            Constants.Server.BASE_URL + Constants.Server.IMAGE_SPASH_URL.format(args.idChamp, 0)
-
-        binding?.toolbarImageView?.let {
-            Glide.with(requireContext()).load(urlImage).into(it)
+        args.idChamp?.let { viewModel.getChampionDetail(it, true) }
+        viewModel.champion.observe(viewLifecycleOwner) {
+            refreshScreen()
         }
+        setImageToolBar()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -95,24 +89,15 @@ class ChampDetailFragment : RecyclerFragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun getItems(): List<GenericItem> {
+    private fun getItems(lastVersion: String): List<GenericItem> {
         val items = mutableListOf<GenericItem>()
-
-        if (viewModel.champion.value == null) {
-            items += emptyScreenItem {
-                onClickRefresh = View.OnClickListener {
-                    args.idChamp?.let { id -> viewModel.fetchChampion(id) }
-                }
-            }
-            return items
-        }
-
+        val championDetail = viewModel.champion.value?.data
         items += spaceItem {
             spaceRes = R.dimen.spacing_large
         }
         items += horizontalRecyclerItem {
             val tagList = mutableListOf<GenericItem>()
-            viewModel.champion.value?.tags?.forEach {
+            championDetail?.tags?.forEach {
                 tagList += spaceItem {
                     spaceRes = R.dimen.spacing_large
                     orientation = SpaceItem.Orientation.HORIZONTAL
@@ -132,17 +117,30 @@ class ChampDetailFragment : RecyclerFragment() {
             identifier = "tags".hashCode().toLong()
         }
 
+        if(lastVersion != championDetail?.version) {
+            items += spaceItem {
+                spaceRes = R.dimen.spacing_large
+            }
+
+            items += refreshItem {
+                onClick = View.OnClickListener {
+                    args.idChamp?.let { id -> viewModel.fetchChampion(id) }
+                }
+                identifier = "refresh".hashCode().toLong()
+            }
+        }
+
         items += sectionTitleItem {
             title = getString(R.string.champ_detail_screen_lore_section)
             identifier = title.hashCode().toLong()
         }
         items += titleItem {
-            text = viewModel.champion.value?.title
+            text = championDetail?.title
             identifier = text.hashCode().toLong()
         }
 
         items += captionItem {
-            text = viewModel.champion.value?.lore
+            text = championDetail?.lore
             maxLine = 4
             identifier = text.hashCode().toLong()
             onClick = View.OnClickListener {
@@ -161,19 +159,17 @@ class ChampDetailFragment : RecyclerFragment() {
         }
 
         items += spellItem {
-            viewModel.champion.value?.passive?.let { passive ->
-                title = passive.name
-                urlImage =
-                    Constants.Server.BASE_URL + Constants.Server.IMAGE_PASSIVE_URL.format(passive.image)
-                identifier = title.hashCode().toLong()
-                onClickCard = View.OnClickListener {
-                    findNavController().navigate(
-                        ChampDetailFragmentDirections.actionChampDetailFragmentToDetailBottomSheetFragment(
-                            args.idChamp,
-                            DetailBottomSheetFragment.InfoToDisplay.PASSIVE,
-                        )
+            title = championDetail?.passive?.name
+            urlImage =
+                Constants.Server.BASE_URL + Constants.Server.IMAGE_PASSIVE_URL.format(championDetail?.passive?.image)
+            identifier = title.hashCode().toLong()
+            onClickCard = View.OnClickListener {
+                findNavController().navigate(
+                    ChampDetailFragmentDirections.actionChampDetailFragmentToDetailBottomSheetFragment(
+                        args.idChamp,
+                        DetailBottomSheetFragment.InfoToDisplay.PASSIVE,
                     )
-                }
+                )
             }
         }
 
@@ -181,12 +177,13 @@ class ChampDetailFragment : RecyclerFragment() {
             title = getString(R.string.champ_detail_screen_abilities_section)
             identifier = title.hashCode().toLong()
         }
-        viewModel.champion.value?.spells?.mapIndexedTo(items) { index, spell ->
+
+        championDetail?.spells?.mapIndexedTo(items) { index, spell ->
             spellItem {
                 title = spell.name
                 urlImage =
                     Constants.Server.BASE_URL + Constants.Server.IMAGE_SPELL_URL.format(spell.image)
-                spellKey = SpellItem.KeySpell.values().find { it.index == index }
+                spellKey = KeySpell.values().find { it.index == index }
                 title.hashCode().toLong()
                 onClickCard = View.OnClickListener {
                     findNavController().navigate(
@@ -206,7 +203,7 @@ class ChampDetailFragment : RecyclerFragment() {
         }
 
         items += horizontalRecyclerItem {
-            itemsList = getSkinsItems()
+            itemsList = getSkinsItems(championDetail)
             viewPool = recyclerViewPool
             isPager = true
             identifier = "skins".hashCode().toLong()
@@ -215,9 +212,9 @@ class ChampDetailFragment : RecyclerFragment() {
         return items
     }
 
-    private fun getSkinsItems(): List<GenericItem> {
+    private fun getSkinsItems(championDetail: ChampionDetail?): List<GenericItem> {
         val items = mutableListOf<GenericItem>()
-        viewModel.champion.value?.skins?.filter { it.name != Constants.Champions.DEFAULT_SKIN_NAME }?.forEach {
+        championDetail?.skins?.filter { it.name != Constants.Champions.DEFAULT_SKIN_NAME }?.forEach {
             items += skinItem {
                 name = it.name
                 urlImage = Constants.Server.BASE_URL + Constants.Server.IMAGE_SPASH_URL.format(
@@ -236,11 +233,54 @@ class ChampDetailFragment : RecyclerFragment() {
         binding = null
     }
 
-    override fun refreshScreen() {
-        super.refreshScreen()
-        val drawable =
-            if (viewModel.champion.value?.isFavorite == true) R.drawable.ic_filled_heart else R.drawable.ic_empty_heart
+    private fun refreshScreen() {
+        val drawable = if (viewModel.champion.value?.data?.isFavorite == true) {
+            R.drawable.ic_filled_heart
+        } else {
+            R.drawable.ic_empty_heart
+        }
         menuItem?.icon = ContextCompat.getDrawable(requireContext(), drawable)
+
+        when (viewModel.champion.value) {
+            is DataResult.Loading, null -> displayShimmerScreen()
+            is DataResult.Success -> displayChampionDetail()
+            is DataResult.Failure -> displayOfflineScreen()
+        }
+
+    }
+
+    private fun displayShimmerScreen() {
+        val items = mutableListOf<GenericItem>()
+        items += championDetailShimmerItem { }
+        fastAdapter.setNewList(items)
+    }
+
+    private fun displayOfflineScreen() {
+        val items = mutableListOf<GenericItem>()
+        items += spaceItem {
+            spaceRes = R.dimen.spacing_large
+        }
+        items += emptyScreenItem {
+            onClickRefresh = View.OnClickListener {
+                args.idChamp?.let { id -> viewModel.fetchChampion(id) }
+            }
+        }
+        fastAdapter.setNewList(items)
+    }
+
+    private fun displayChampionDetail() {
+        setImageToolBar()
+        lifecycleScope.launch {
+            fastAdapter.setNewList(getItems(viewModel.lastVersion()))
+
+        }
+    }
+
+    private fun setImageToolBar() {
+        val urlImage = Constants.Server.BASE_URL + Constants.Server.IMAGE_SPASH_URL.format(args.idChamp, 0)
+        binding?.toolbarImageView?.let {
+            Glide.with(requireContext()).load(urlImage).into(it)
+        }
     }
 
 }

@@ -7,7 +7,7 @@ import com.androidcourse.leaguewiki.model.ChampionInfo
 @Entity
 data class ChampionInfoRoom (
     @PrimaryKey val id: String,
-    val name: String?,
+    val name: String,
     val title: String?,
     val version: String?,
     var isFavorite: Boolean = false

@@ -11,7 +11,7 @@ data class ApiChampion(
     val blurb: String?,
     val id: String,
     val key: String?,
-    val name: String?,
+    val name: String,
     val partype: String?,
     val tags: List<String>?,
     val title: String?,

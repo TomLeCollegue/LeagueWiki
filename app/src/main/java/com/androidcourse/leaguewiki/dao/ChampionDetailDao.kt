@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Relation
 import androidx.room.Transaction
-import com.androidcourse.leaguewiki.model.ChampionDetail
 import com.androidcourse.leaguewiki.model.room.ChampionDetailRoom
 import com.androidcourse.leaguewiki.model.room.ChampionFavoriteRoom
 import kotlinx.coroutines.flow.Flow

@@ -12,4 +12,6 @@
     <string name="api_language">fr_FR</string>
     <string name="offline_text">Etes vous hors ligne ?</string>
     <string name="refresh_button">Rafraîchir</string>
+    <string name="refresh">Cliquez pour rafraîchir</string>
+    <string name="outdated_data">Ces données ne sont pas à jour</string>
 </resources>

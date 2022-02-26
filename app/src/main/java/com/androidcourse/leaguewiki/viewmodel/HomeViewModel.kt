@@ -6,6 +6,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.androidcourse.leaguewiki.data.ChampionsRepository
 import com.androidcourse.leaguewiki.model.ChampionInfo
+import com.androidcourse.leaguewiki.model.DataResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -31,7 +32,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    val champions: LiveData<List<ChampionInfo>?> = championsRepository.championsList.asLiveData()
+    val champions: LiveData<DataResult<List<ChampionInfo>?>> = championsRepository.championsList.asLiveData()
 
     fun setResearch(value: String) {
         _research.value = value

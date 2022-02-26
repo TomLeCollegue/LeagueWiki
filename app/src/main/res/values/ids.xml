@@ -14,4 +14,6 @@
     <item name="stat_item" type="id" />
     <item name="empty_screen_item" type="id" />
     <item name="video_item" type="id" />
+    <item name="champion_detail_shimmer_item" type="id" />
+    <item name="refresh_item" type="id" />
 </resources>

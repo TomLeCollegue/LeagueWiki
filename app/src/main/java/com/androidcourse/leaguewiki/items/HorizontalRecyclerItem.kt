@@ -2,6 +2,8 @@ package com.androidcourse.leaguewiki.items
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
@@ -16,6 +18,12 @@ class HorizontalRecyclerItem : AbstractBindingItem<HorizontalRecyclerItemBinding
     var itemsList: List<GenericItem> = listOf()
     var isPager = false
     var viewPool = RecyclerView.RecycledViewPool()
+
+    @ColorRes
+    var colorActiveRes: Int = R.color.marigold
+
+    @ColorRes
+    var colorInactiveRes: Int = R.color.black_pearl
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -35,7 +43,9 @@ class HorizontalRecyclerItem : AbstractBindingItem<HorizontalRecyclerItemBinding
         }
         fastAdapter.setNewList(itemsList)
         if (binding.recyclerView.onFlingListener == null && isPager) {
-            binding.recyclerView.addItemDecoration(CirclePagerIndicatorDecoration())
+            val colorActive = ContextCompat.getColor(binding.root.context, colorActiveRes)
+            val colorInactive = ContextCompat.getColor(binding.root.context, colorInactiveRes)
+            binding.recyclerView.addItemDecoration(CirclePagerIndicator(colorActive, colorInactive))
             val helper: SnapHelper = PagerSnapHelper()
             helper.attachToRecyclerView(binding.recyclerView)
         }

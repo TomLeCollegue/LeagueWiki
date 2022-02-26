@@ -12,5 +12,7 @@
     <string name="api_language">en_US</string>
     <string name="offline_text">Are you offline ?</string>
     <string name="refresh_button">Refresh</string>
+    <string name="refresh">Click to refresh</string>
+    <string name="outdated_data">These data are outdated</string>
 
 </resources>

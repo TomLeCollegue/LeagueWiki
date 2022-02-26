@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -19,17 +20,20 @@ import com.androidcourse.leaguewiki.items.ChampionListItem
 import com.androidcourse.leaguewiki.items.championListItem
 import com.androidcourse.leaguewiki.items.titleItem
 import com.androidcourse.leaguewiki.model.ChampionInfo
+import com.androidcourse.leaguewiki.model.DataResult
 import com.androidcourse.leaguewiki.viewmodel.HomeViewModel
 import com.mikepenz.fastadapter.GenericItem
+import com.mikepenz.fastadapter.adapters.GenericFastItemAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeFragment : RecyclerFragment() {
+class HomeFragment : Fragment() {
 
     private val viewModel by viewModels<HomeViewModel>()
 
     var binding: FragmentHomeBinding? = null
+    private val fastAdapter = GenericFastItemAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,24 +61,42 @@ class HomeFragment : RecyclerFragment() {
         }
 
         viewModel.champions.observe(viewLifecycleOwner) {
-            if (!it.isNullOrEmpty()) {
-                refreshScreen()
-            }
+            refreshScreen()
+        }
+
+        binding?.emptyLayout?.refreshButton?.setOnClickListener {
+            viewModel.updateChamps()
         }
     }
 
-    override fun refreshScreen() {
-        super.refreshScreen()
-        if (viewModel.champions.value.isNullOrEmpty()) {
-            binding?.emptyLayout?.refreshButton?.setOnClickListener {
-                viewModel.updateChamps()
-            }
-        } else {
-            binding?.emptyLayout?.root?.isVisible = false
+    private fun refreshScreen() {
+        when(viewModel.champions.value) {
+            is DataResult.Loading, null -> displayShimmer()
+            is DataResult.Success -> displayListChamp()
+            is DataResult.Failure -> displayOfflineScreen()
         }
+    }
+
+    private fun displayOfflineScreen() {
+        binding?.emptyLayout?.root?.isVisible = true
+        binding?.recyclerView?.isVisible = false
+        binding?.shimmerLayout?.shimmerFrame?.stopShimmer()
+        binding?.shimmerLayout?.root?.isVisible = false
+    }
+
+    private fun displayListChamp() {
+        binding?.emptyLayout?.root?.isVisible = false
         binding?.recyclerView?.isVisible = true
         binding?.shimmerLayout?.shimmerFrame?.stopShimmer()
         binding?.shimmerLayout?.root?.isVisible = false
+        fastAdapter.setNewList(getItems())
+    }
+
+    private fun displayShimmer() {
+        binding?.emptyLayout?.root?.isVisible = false
+        binding?.recyclerView?.isVisible = false
+        binding?.shimmerLayout?.shimmerFrame?.startShimmer()
+        binding?.shimmerLayout?.root?.isVisible = true
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -97,11 +119,11 @@ class HomeFragment : RecyclerFragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun getItems(): List<GenericItem> {
+    private fun getItems(): List<GenericItem> {
         val items = mutableListOf<GenericItem>()
 
-        viewModel.champions.value?.filter {
-            it.isFavorite && it.name?.contains(viewModel.research.value, ignoreCase = true) == true
+        viewModel.champions.value?.data?.filter {
+            it.isFavorite && it.name.contains(viewModel.research.value, ignoreCase = true)
         }?.let {
             if (!it.isNullOrEmpty()) {
                 items += titleItem {
@@ -118,8 +140,8 @@ class HomeFragment : RecyclerFragment() {
             }
         }
 
-        viewModel.champions.value?.filter {
-            it.name?.contains(viewModel.research.value, ignoreCase = true) == true
+        viewModel.champions.value?.data?.filter {
+            it.name.contains(viewModel.research.value, ignoreCase = true)
         }?.mapTo(items) { champ ->
             getChampionItem(false, champ)
         }
@@ -136,7 +158,7 @@ class HomeFragment : RecyclerFragment() {
             identifier = "${champ.name}$isFav".hashCode().toLong()
             onClickCard = View.OnClickListener {
                 findNavController().navigate(
-                    HomeFragmentDirections.actionHomeFragmentToChampDetailFragment(champ.id)
+                    HomeFragmentDirections.actionHomeFragmentToChampDetailFragment(champ.id, champ.name)
                 )
             }
             onFavoriteClick = View.OnClickListener {

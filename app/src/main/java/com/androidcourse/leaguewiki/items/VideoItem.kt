@@ -2,11 +2,8 @@ package com.androidcourse.leaguewiki.items
 
 import android.media.MediaPlayer
 import android.net.Uri
-import android.opengl.Visibility
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import com.androidcourse.leaguewiki.R
 import com.androidcourse.leaguewiki.databinding.VideoItemBinding
