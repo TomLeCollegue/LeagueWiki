@@ -1,7 +1,5 @@
 package com.androidcourse.leaguewiki.items
 
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,8 +19,6 @@ class SpellItem : AbstractBindingItem<SpellItemBinding>() {
     var spellKey: KeySpell? = null
     var onClickCard: View.OnClickListener? = null
 
-    private var defaultRippleColor: ColorStateList? = null
-
     override fun createBinding(inflater: LayoutInflater, parent: ViewGroup?): SpellItemBinding {
         return SpellItemBinding.inflate(inflater, parent, false)
     }
@@ -40,17 +36,8 @@ class SpellItem : AbstractBindingItem<SpellItemBinding>() {
                 binding.spellImageView.setImageResource(it.res)
             }
         }
-
-        defaultRippleColor = binding.root.rippleColor
-        if (onClickCard == null) {
-            binding.root.rippleColor = ColorStateList.valueOf(Color.TRANSPARENT)
-        }
         binding.root.setOnClickListener(onClickCard)
-    }
-
-    override fun unbindView(binding: SpellItemBinding) {
-        super.unbindView(binding)
-        binding.root.rippleColor = defaultRippleColor
+        binding.root.isClickable = onClickCard != null
     }
 
     override val type: Int = R.id.spell_item

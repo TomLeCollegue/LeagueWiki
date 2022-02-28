@@ -8,7 +8,6 @@ import com.androidcourse.leaguewiki.R
 import com.androidcourse.leaguewiki.databinding.SearchBarItemBinding
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 
-
 class SearchBarItem : AbstractBindingItem<SearchBarItemBinding>() {
 
     override val type: Int = R.id.search_item

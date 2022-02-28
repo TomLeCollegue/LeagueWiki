@@ -69,7 +69,7 @@ class ChampDetailFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.title = args.namechamp
         setHasOptionsMenu(true)
 
-        args.idChamp?.let { viewModel.getChampionDetail(it, true) }
+        args.idChamp?.let { viewModel.getChampionDetail(it) }
         viewModel.champion.observe(viewLifecycleOwner) {
             refreshScreen()
         }
@@ -117,7 +117,7 @@ class ChampDetailFragment : Fragment() {
             identifier = "tags".hashCode().toLong()
         }
 
-        if(lastVersion != championDetail?.version) {
+        if (lastVersion != championDetail?.version) {
             items += spaceItem {
                 spaceRes = R.dimen.spacing_large
             }

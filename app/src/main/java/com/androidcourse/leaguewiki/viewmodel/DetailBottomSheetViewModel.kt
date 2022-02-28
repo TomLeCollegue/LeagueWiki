@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailBottomSheetViewModel @Inject constructor(
     private val repository: ChampionsRepository
-): ViewModel() {
+) : ViewModel() {
     private val _champion: MutableLiveData<ChampionDetail?> = MutableLiveData(null)
     val champion: LiveData<ChampionDetail?> get() = _champion
 
@@ -22,7 +22,6 @@ class DetailBottomSheetViewModel @Inject constructor(
             repository.championDetailById(champId).collect {
                 _champion.value = it
             }
-
         }
     }
 }

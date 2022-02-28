@@ -6,7 +6,7 @@ import com.androidcourse.leaguewiki.R
 import com.androidcourse.leaguewiki.databinding.ChampionDetailShimmerLayoutBinding
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 
-class ChampionDetailShimmerItem: AbstractBindingItem<ChampionDetailShimmerLayoutBinding>() {
+class ChampionDetailShimmerItem : AbstractBindingItem<ChampionDetailShimmerLayoutBinding>() {
 
     override val type: Int = R.id.champion_detail_shimmer_item
 

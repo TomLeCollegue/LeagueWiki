@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.androidcourse.leaguewiki.model.ChampionInfo
 
 @Entity
-data class ChampionInfoRoom (
+data class ChampionInfoRoom(
     @PrimaryKey val id: String,
     val name: String,
     val title: String?,
@@ -15,6 +15,7 @@ data class ChampionInfoRoom (
     fun toChampionInfo(isFavorite: Boolean) = ChampionInfo(
         id, name, title, version, isFavorite
     )
+
     companion object {
         fun fromChampionInfo(championInfo: ChampionInfo) = ChampionInfoRoom(
             championInfo.id,

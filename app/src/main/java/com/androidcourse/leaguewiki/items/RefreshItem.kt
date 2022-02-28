@@ -7,9 +7,9 @@ import com.androidcourse.leaguewiki.R
 import com.androidcourse.leaguewiki.databinding.RefreshDetailsItemBinding
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 
-class RefreshItem: AbstractBindingItem<RefreshDetailsItemBinding>() {
+class RefreshItem : AbstractBindingItem<RefreshDetailsItemBinding>() {
 
-     var onClick: View.OnClickListener? = null
+    var onClick: View.OnClickListener? = null
 
     override fun createBinding(inflater: LayoutInflater, parent: ViewGroup?): RefreshDetailsItemBinding {
         return RefreshDetailsItemBinding.inflate(inflater, parent, false)

@@ -1,7 +1,6 @@
 package com.androidcourse.leaguewiki.data
 
 import android.content.Context
-import android.util.Log
 import com.androidcourse.leaguewiki.AppDataBase
 import com.androidcourse.leaguewiki.model.ChampionDetail
 import com.androidcourse.leaguewiki.model.ChampionInfo
@@ -32,7 +31,6 @@ class LocalChampionsDatasource @Inject constructor(
 
     fun championDetailByIdFlow(id: String): Flow<ChampionDetail?> {
         return db.championDetailDao().getById(id).map {
-            Log.d("observe", "datasource map")
             it?.championDetail?.toChampionDetail(it.favorite?.isFavorite ?: false)
         }
     }

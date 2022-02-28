@@ -1,7 +1,5 @@
 package com.androidcourse.leaguewiki.items
 
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,8 +14,6 @@ class SkinItem : AbstractBindingItem<SkinItemBinding>() {
     var urlImage: String? = null
     var onClickCard: View.OnClickListener? = null
 
-    private var defaultRippleColor: ColorStateList? = null
-
     override fun createBinding(inflater: LayoutInflater, parent: ViewGroup?): SkinItemBinding {
         return SkinItemBinding.inflate(inflater, parent, false)
     }
@@ -27,15 +23,9 @@ class SkinItem : AbstractBindingItem<SkinItemBinding>() {
         binding.nameTextView.text = name
         Glide.with(binding.root.context).load(urlImage).into(binding.imageView)
 
-        defaultRippleColor = binding.card.rippleColor
-        if (onClickCard == null) {
-            binding.card.rippleColor = ColorStateList.valueOf(Color.TRANSPARENT)
-        }
-    }
 
-    override fun unbindView(binding: SkinItemBinding) {
-        super.unbindView(binding)
-        binding.card.rippleColor = defaultRippleColor
+        binding.root.setOnClickListener(onClickCard)
+        binding.root.isClickable = onClickCard != null
     }
 
     override val type: Int = R.id.skin_item

@@ -7,10 +7,9 @@ import com.androidcourse.leaguewiki.R
 import com.androidcourse.leaguewiki.databinding.EmptyScreenItemBinding
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 
-class EmptyScreenItem: AbstractBindingItem<EmptyScreenItemBinding>() {
+class EmptyScreenItem : AbstractBindingItem<EmptyScreenItemBinding>() {
 
     var onClickRefresh: View.OnClickListener? = null
-
 
     override fun createBinding(inflater: LayoutInflater, parent: ViewGroup?): EmptyScreenItemBinding {
         return EmptyScreenItemBinding.inflate(inflater, parent, false)

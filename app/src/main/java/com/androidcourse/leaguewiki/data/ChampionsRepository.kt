@@ -1,10 +1,8 @@
 package com.androidcourse.leaguewiki.data
 
-import android.util.Log
 import com.androidcourse.leaguewiki.model.ChampionDetail
 import com.androidcourse.leaguewiki.model.ChampionInfo
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 

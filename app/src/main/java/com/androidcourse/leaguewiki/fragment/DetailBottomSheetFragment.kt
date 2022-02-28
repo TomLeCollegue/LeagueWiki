@@ -17,7 +17,7 @@ import com.androidcourse.leaguewiki.items.statItem
 import com.androidcourse.leaguewiki.items.titleSpellItem
 import com.androidcourse.leaguewiki.items.videoItem
 import com.androidcourse.leaguewiki.model.KeySpell
-import com.androidcourse.leaguewiki.viewmodel.ChampDetailViewModel
+import com.androidcourse.leaguewiki.viewmodel.DetailBottomSheetViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mikepenz.fastadapter.GenericItem
 import com.mikepenz.fastadapter.adapters.GenericFastItemAdapter
@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class DetailBottomSheetFragment : BottomSheetDialogFragment() {
 
-    private val viewModel: ChampDetailViewModel by viewModels()
+    private val viewModel: DetailBottomSheetViewModel by viewModels()
 
     private val args: DetailBottomSheetFragmentArgs by navArgs()
 
@@ -39,7 +39,7 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        args.champId?.let { viewModel.getChampionDetail(it, false) }
+        args.champId?.let { viewModel.getChampionDetail(it) }
         binding = FragmentRecyclerBinding.inflate(inflater, container, false).apply {
             recyclerView.adapter = fastAdapter
         }
@@ -69,7 +69,7 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun getPassiveItem(): List<GenericItem> {
         val items = mutableListOf<GenericItem>()
-        val passive = viewModel.champion.value?.data?.passive
+        val passive = viewModel.champion.value?.passive
         items += titleSpellItem {
             title = passive?.name
             urlImage =
@@ -84,7 +84,7 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
             spaceRes = R.dimen.spacing_large
         }
         items += videoItem {
-            val key = ("0000" + viewModel.champion.value?.data?.key).takeLast(4)
+            val key = ("0000" + viewModel.champion.value?.key).takeLast(4)
             urlVideo = Constants.Server.VIDEO_URL_PASSIVE.format(
                 key,
                 key,
@@ -101,13 +101,13 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
     private fun getLoreItem(): List<GenericItem> {
         val items = mutableListOf<GenericItem>()
         items += titleSpellItem {
-            title = viewModel.champion.value?.data?.title
+            title = viewModel.champion.value?.title
             urlImage =
-                Constants.Server.BASE_URL + Constants.Server.IMAGE_CHAMP_URL.format(viewModel.champion.value?.data?.id)
+                Constants.Server.BASE_URL + Constants.Server.IMAGE_CHAMP_URL.format(viewModel.champion.value?.id)
             identifier = "lore.title".hashCode().toLong()
         }
         items += captionItem {
-            text = viewModel.champion.value?.data?.lore?.clearTags()
+            text = viewModel.champion.value?.lore?.clearTags()
             identifier = "lore.description".hashCode().toLong()
         }
         items += spaceItem {
@@ -117,7 +117,7 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun getSpellItem(infoToDisplay: InfoToDisplay): List<GenericItem> {
-        val spell = viewModel.champion.value?.data?.spells?.get(infoToDisplay.index!!)
+        val spell = viewModel.champion.value?.spells?.get(infoToDisplay.index!!)
         val items = mutableListOf<GenericItem>()
         items += titleSpellItem {
             title = spell?.name
@@ -162,7 +162,7 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         items += videoItem {
-            val key = ("0000" + viewModel.champion.value?.data?.key).takeLast(4)
+            val key = ("0000" + viewModel.champion.value?.key).takeLast(4)
             urlVideo = Constants.Server.VIDEO_URL_PASSIVE.format(
                 key,
                 key,

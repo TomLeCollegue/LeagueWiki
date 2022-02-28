@@ -21,9 +21,12 @@ class ChampionsDataSource @Inject constructor(
 
     suspend fun getChampionList(version: String?): ApiModelChampionList? {
         try {
-            val result = apiChampionService.getChampions(context.getString(R.string.api_language), version ?: Constants.Config.DEFAULT_VERSION)
+            val result = apiChampionService.getChampions(
+                context.getString(R.string.api_language),
+                version ?: Constants.Config.DEFAULT_VERSION
+            )
             if (result.isSuccessful) {
-               return result.body()
+                return result.body()
             } else {
                 Log.d("Log", "error fetching champs")
             }

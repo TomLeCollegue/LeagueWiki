@@ -54,6 +54,7 @@ data class ChampionDetailRoom(
         version,
         isFavorite
     )
+
     companion object {
         fun fromChampionDetail(championDetail: ChampionDetail) = ChampionDetailRoom(
             championDetail.allytips,
@@ -89,6 +90,7 @@ data class InfoRoom(
     fun toInfo() = Info(
         attack, defense, difficulty, magic
     )
+
     companion object {
         fun fromInfo(info: Info) = InfoRoom(
             info.attack, info.defense, info.difficulty, info.magic
@@ -104,6 +106,7 @@ data class PassiveRoom(
     fun toPassive() = Passive(
         description, image, namePassive
     )
+
     companion object {
         fun fromPassive(passive: Passive) = PassiveRoom(
             passive.description, passive.image, passive.name
@@ -120,6 +123,7 @@ data class SkinRoom(
     fun toSkin() = Skin(
         chromas, id, nameSkin, num
     )
+
     companion object {
         fun fromSkin(skin: Skin) = SkinRoom(
             skin.chromas, skin.id, skin.name, skin.num
@@ -165,6 +169,7 @@ data class SpellRoom(
         resource,
         tooltip
     )
+
     companion object {
         fun fromSpell(spell: Spell) = SpellRoom(
             spell.cooldown,
@@ -232,6 +237,7 @@ data class StatsRoom(
         spellblock,
         spellblockperlevel
     )
+
     companion object {
         fun fromStats(stats: Stats) = StatsRoom(
             stats.armor,
@@ -265,6 +271,7 @@ data class LeveltipRoom(
     fun toLevelTip() = Leveltip(
         effect, label
     )
+
     companion object {
         fun fromLevelTip(leveltip: Leveltip) = LeveltipRoom(
             leveltip.effect, leveltip.label

@@ -70,7 +70,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun refreshScreen() {
-        when(viewModel.champions.value) {
+        when (viewModel.champions.value) {
             is DataResult.Loading, null -> displayShimmer()
             is DataResult.Success -> displayListChamp()
             is DataResult.Failure -> displayOfflineScreen()
