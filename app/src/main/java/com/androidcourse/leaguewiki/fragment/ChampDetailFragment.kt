@@ -251,7 +251,9 @@ class ChampDetailFragment : Fragment() {
 
     private fun displayShimmerScreen() {
         val items = mutableListOf<GenericItem>()
-        items += championDetailShimmerItem { }
+        items += championDetailShimmerItem {
+            identifier = "shimmer".hashCode().toLong()
+        }
         fastAdapter.setNewList(items)
     }
 
